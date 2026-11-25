@@ -222,7 +222,7 @@
     <string name="wizard_open_app_info">باز کردن صفحه اطلاعات برنامه</string>
 
     <string name="wizard_step4_title">آیکون سریع، ویجت و حریم خصوصی</string>
-    <string name="wizard_step4_desc">• پنل کنترل بالای گوشی (Quick Settings) را پایین بکشید، دکمه ویرایش (مداد) را بزنید و تایل «موقعیت امن NotreMock» را اضافه کنید.\n\n• ویجت استاندارد NotreMock را روی صفحه اصلی بگذارید.\n\n• در گوشی‌های غیرروت، برای جلوگیری از نشت سیم‌کارت از حالت هواپیما + Wi-Fi استفاده کنید.</string>
+    <string name="wizard_step4_desc" formatted="false">• پنل کنترل بالای گوشی (Quick Settings) را پایین بکشید، دکمه ویرایش (مداد) را بزنید و تایل «موقعیت امن NotreMock» را اضافه کنید.\n\n• ویجت استاندارد NotreMock را روی صفحه اصلی بگذارید.\n\n• در گوشی‌های غیرروت، برای جلوگیری از نشت سیم‌کارت از حالت هواپیما + Wi-Fi استفاده کنید.</string>
 
     <string name="oem_samsung">سامسونگ</string>
     <string name="oem_xiaomi">شیائومی / پوکو</string>

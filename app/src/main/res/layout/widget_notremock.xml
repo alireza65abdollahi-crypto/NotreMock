@@ -16,8 +16,7 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_shield_pin"
-        android:tint="#10B981" />
+        android:src="@drawable/ic_shield_pin" />
 
     <LinearLayout
         android:layout_width="0dp"

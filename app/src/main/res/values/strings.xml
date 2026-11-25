@@ -222,7 +222,7 @@
     <string name="wizard_open_app_info">Open App Battery Info</string>
 
     <string name="wizard_step4_title">Quick Tile, Widget &amp; Privacy</string>
-    <string name="wizard_step4_desc">• Pull down your top Quick Settings panel, tap Edit (pencil), and add "NotreMock GPS" for an instant Kill Switch.\n\n• Add the NotreMock Home Screen Widget for 1-tap toggle.\n\n• Use Airplane Mode + Wi-Fi on non-root phones for 100% cellular privacy.</string>
+    <string name="wizard_step4_desc" formatted="false">• Pull down your top Quick Settings panel, tap Edit (pencil), and add "NotreMock GPS" for an instant Kill Switch.\n\n• Add the NotreMock Home Screen Widget for 1-tap toggle.\n\n• Use Airplane Mode + Wi-Fi on non-root phones for 100% cellular privacy.</string>
 
     <string name="oem_samsung">Samsung</string>
     <string name="oem_xiaomi">Xiaomi / POCO</string>
