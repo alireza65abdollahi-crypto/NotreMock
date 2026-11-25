@@ -12,6 +12,7 @@ import com.notremock.app.NotreMockApp
 import com.notremock.app.core.location.MockLocationEngine
 import com.notremock.app.core.location.MockRuntimeState
 import com.notremock.app.core.location.MockState
+import com.notremock.app.core.privacy.ForegroundAppDetector
 import com.notremock.app.core.privacy.IpCheckState
 import com.notremock.app.core.privacy.OemGuideHelper
 import com.notremock.app.core.privacy.PrivacyAuditReport
@@ -29,7 +30,6 @@ import com.notremock.app.data.prefs.PanicAction
 import com.notremock.app.data.prefs.PreferencesRepository
 import com.notremock.app.data.prefs.ThemeMode
 import com.notremock.app.data.prefs.TimeZoneMode
-import com.notremock.app.service.AppMonitorAccessibilityService
 import com.notremock.app.service.MockForegroundService
 import com.notremock.app.widget.NotreMockWidgetProvider
 import com.notremock.app.xposed.XposedStatus
@@ -148,7 +148,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
             _hasLocationPermission.value = locPerm
             _isBatteryExempt.value = batteryExempt
-            _isAccessibilityEnabled.value = AppMonitorAccessibilityService.isServiceEnabled(ctx)
+            _isAccessibilityEnabled.value = ForegroundAppDetector.hasUsageAccessPermission(ctx)
             _shizukuStatus.value = TimeZoneController.checkShizukuStatus()
             _auditReport.value = audit
             _diagnostics.value = SetupDiagnostics(

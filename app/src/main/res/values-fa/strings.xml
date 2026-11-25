@@ -89,9 +89,9 @@
     <string name="section_bypass">استثنا کردن برنامه‌ها (توقف خودکار)</string>
     <string name="bypass_enable">فعال‌سازی توقف خودکار هوشمند</string>
     <string name="bypass_enable_desc">توقف موقت موقعیت جعلی هنگام باز کردن برنامه‌های منتخب</string>
-    <string name="bypass_accessibility_ok">پایشگر توقف خودکار فعال است</string>
-    <string name="bypass_accessibility_needed">فعال‌سازی سرویس دسترسی برای توقف خودکار</string>
-    <string name="bypass_accessibility_privacy">فقط نام برنامه پیش‌زمینه بررسی می‌شود؛ هیچ متنی از صفحه خوانده نمی‌شود.</string>
+    <string name="bypass_accessibility_ok">پایشگر توقف خودکار (Usage Access) فعال است</string>
+    <string name="bypass_accessibility_needed">تأیید دسترسی Usage Access برای توقف خودکار</string>
+    <string name="bypass_accessibility_privacy">فقط نام پکیج برنامه پیش‌زمینه هنگام روشن بودن سرویس بررسی می‌شود؛ بدون نیاز به Accessibility و بدون خواندن صفحه.</string>
     <string name="bypass_manage_apps">مدیریت برنامه‌های مستثنی (%d)</string>
     <string name="bypass_picker_title">برنامه‌های مستثنی</string>
     <string name="bypass_presets_note">اپ‌های پرکاربرد مسیریاب (نشان، بلد، مپس و...) آماده انتخاب هستند. نکته: اپ‌های پس‌زمینه مثل Find My Device بدون روت همزمان قابل تفکیک نیستند.</string>

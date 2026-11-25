@@ -49,6 +49,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.notremock.app.R
+import com.notremock.app.core.privacy.ForegroundAppDetector
 import com.notremock.app.core.privacy.IpCheckState
 import com.notremock.app.core.privacy.SystemIntentHelper
 import com.notremock.app.data.prefs.AppLanguage
@@ -236,7 +237,7 @@ fun SettingsScreen(
                             )
                         }
                         if (!isAccessibilityOn) {
-                            TextButton(onClick = { SystemIntentHelper.openAccessibilitySettings(context) }) {
+                            TextButton(onClick = { ForegroundAppDetector.openUsageAccessSettings(context) }) {
                                 Text(stringResource(R.string.enable))
                             }
                         }

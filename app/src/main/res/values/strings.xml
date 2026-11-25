@@ -89,9 +89,9 @@
     <string name="section_bypass">App Bypass (Auto-Pause)</string>
     <string name="bypass_enable">Enable Smart Auto-Pause</string>
     <string name="bypass_enable_desc">Automatically pause mock GPS when opening selected apps</string>
-    <string name="bypass_accessibility_ok">Auto-Pause Monitor Active</string>
-    <string name="bypass_accessibility_needed">Enable Accessibility Monitor for Auto-Pause</string>
-    <string name="bypass_accessibility_privacy">Only reads foreground package name; never reads screen content.</string>
+    <string name="bypass_accessibility_ok">Usage Access Monitor Active</string>
+    <string name="bypass_accessibility_needed">Grant Usage Access for Auto-Pause</string>
+    <string name="bypass_accessibility_privacy">Only checks foreground app package name while mocking is active; never uses Accessibility or reads screen content.</string>
     <string name="bypass_manage_apps">Manage Bypassed Apps (%d)</string>
     <string name="bypass_picker_title">Bypassed Apps</string>
     <string name="bypass_presets_note">Common Iranian &amp; global navigation apps are pre-listed. Note: background-only apps like Find My Device require Root/LSPosed for simultaneous bypass.</string>

@@ -19,6 +19,7 @@ import com.notremock.app.R
 import com.notremock.app.core.location.MockErrorType
 import com.notremock.app.core.location.MockLocationEngine
 import com.notremock.app.core.location.MockState
+import com.notremock.app.core.privacy.ForegroundAppDetector
 import com.notremock.app.core.privacy.OemGuideHelper
 import com.notremock.app.data.db.CityDatabaseHelper
 import com.notremock.app.data.model.City
@@ -41,6 +42,7 @@ class MockForegroundService : Service() {
     private lateinit var prefsRepo: PreferencesRepository
     private lateinit var cityDb: CityDatabaseHelper
     private var injectionJob: Job? = null
+    private var bypassMonitorJob: Job? = null
 
     private var baseLat: Double = 0.0
     private var baseLng: Double = 0.0
@@ -131,6 +133,7 @@ class MockForegroundService : Service() {
         startForegroundCompat(buildServiceNotification(city, pausedBy = null, stealth = settings.stealthNotification))
         refreshTile()
         launchInjectionLoop()
+        launchBypassMonitor()
     }
 
     private suspend fun randomizeCurrentCity() {
@@ -185,6 +188,7 @@ class MockForegroundService : Service() {
     }
 
     private suspend fun stopMocking() {
+        bypassMonitorJob?.cancel()
         injectionJob?.cancel()
         engine.stopProviders()
         prefsRepo.setMockingActiveState(false)
@@ -192,6 +196,36 @@ class MockForegroundService : Service() {
         refreshTile()
         stopForeground(STOP_FOREGROUND_REMOVE)
         stopSelf()
+    }
+
+    private fun launchBypassMonitor() {
+        bypassMonitorJob?.cancel()
+        bypassMonitorJob = serviceScope.launch {
+            while (isActive) {
+                delay(800L)
+                val runtime = MockState.state.value
+                if (!runtime.isRunning) break
+                val settings = prefsRepo.getCurrentSettings()
+                if (!settings.bypassEnabled) {
+                    if (runtime.isPaused) resumeMocking()
+                    continue
+                }
+                val fgPkg = ForegroundAppDetector.getCurrentForegroundPackage(this@MockForegroundService)
+                    ?: continue
+                if (fgPkg == packageName || fgPkg == "com.android.systemui") continue
+
+                val shouldBypass = settings.bypassPackages.contains(fgPkg)
+                if (shouldBypass && !runtime.isPaused) {
+                    val label = runCatching {
+                        val info = packageManager.getApplicationInfo(fgPkg, 0)
+                        packageManager.getApplicationLabel(info).toString()
+                    }.getOrDefault(fgPkg)
+                    pauseMocking(label)
+                } else if (!shouldBypass && runtime.isPaused) {
+                    resumeMocking()
+                }
+            }
+        }
     }
 
     private fun launchInjectionLoop() {
@@ -218,6 +252,7 @@ class MockForegroundService : Service() {
 
     private suspend fun handleRevokedOrFailure() {
         val settings = prefsRepo.getCurrentSettings()
+        bypassMonitorJob?.cancel()
         injectionJob?.cancel()
         engine.stopProviders()
         prefsRepo.setMockingActiveState(false)
@@ -325,6 +360,7 @@ class MockForegroundService : Service() {
     }
 
     override fun onDestroy() {
+        bypassMonitorJob?.cancel()
         injectionJob?.cancel()
         engine.stopProviders()
         serviceScope.cancel()
