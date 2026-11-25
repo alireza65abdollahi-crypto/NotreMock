@@ -157,6 +157,17 @@ fun SettingsScreen(
                         checked = settings.syncTimeZone,
                         onCheckedChange = { viewModel.setSyncTimeZone(it) }
                     )
+                    Text(
+                        text = stringResource(R.string.timezone_android_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    OutlinedButton(
+                        onClick = { SystemIntentHelper.openDateAndTimeSettings(context) },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.open_date_time_btn))
+                    }
 
                     HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
                     SwitchRow(
@@ -247,6 +258,33 @@ fun SettingsScreen(
                         if (!isAccessibilityOn) {
                             TextButton(onClick = { ForegroundAppDetector.openUsageAccessSettings(context) }) {
                                 Text(stringResource(R.string.enable))
+                            }
+                        }
+                    }
+
+                    if (!isAccessibilityOn && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        Card(
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.55f)
+                            ),
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(10.dp),
+                                verticalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.bypass_restricted_hint),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                                OutlinedButton(
+                                    onClick = { SystemIntentHelper.openAppDetails(context) },
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text(stringResource(R.string.bypass_open_app_info))
+                                }
                             }
                         }
                     }

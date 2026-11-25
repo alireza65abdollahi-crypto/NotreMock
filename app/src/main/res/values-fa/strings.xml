@@ -95,6 +95,10 @@
     <string name="bypass_accessibility_ok">پایشگر توقف خودکار (Usage Access) فعال است</string>
     <string name="bypass_accessibility_needed">تأیید دسترسی Usage Access برای توقف خودکار</string>
     <string name="bypass_accessibility_privacy">فقط نام پکیج برنامه پیش‌زمینه هنگام روشن بودن سرویس بررسی می‌شود؛ بدون نیاز به Accessibility و بدون خواندن صفحه.</string>
+    <string name="bypass_restricted_hint">پیام «App was denied access» می‌گیرید؟ در اندروید ۱۳ به بالا: دکمه «باز کردن App Info» را بزنید ← منوی سه‌نقطه (⋮) گوشه بالا ← «Allow restricted settings» (اجازه تنظیمات محدودشده) را بزنید و سپس Usage Access را فعال کنید.</string>
+    <string name="bypass_open_app_info">باز کردن App Info</string>
+    <string name="timezone_android_hint">نکته مهم: در اندروید ۱۲+ اگر خود سیستم‌عامل ساعت را با لوکیشن تغییر داد و بعد از توقف برنگشت، وارد تنظیمات Date &amp; Time شوید و «تنظیم خودکار منطقه زمانی / Use location to set time zone» را خاموش یا یک بار ریست کنید.</string>
+    <string name="open_date_time_btn">تنظیمات ساعت و TimeZone</string>
     <string name="bypass_manage_apps">مدیریت برنامه‌های مستثنی (%d)</string>
     <string name="bypass_picker_title">برنامه‌های مستثنی</string>
     <string name="bypass_presets_note">اپ‌های پرکاربرد مسیریاب (نشان، بلد، مپس و...) آماده انتخاب هستند. نکته: اپ‌های پس‌زمینه مثل Find My Device بدون روت همزمان قابل تفکیک نیستند.</string>
