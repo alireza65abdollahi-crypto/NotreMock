@@ -31,6 +31,10 @@ jobs:
       - name: Run unit tests & lint
         run: ./gradlew testDebugUnitTest lintDebug --no-daemon
 
+      - name: Print lint report on failure
+        if: failure()
+        run: cat app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt || true
+
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon
 

@@ -33,6 +33,7 @@ class MockLocationEngine(private val context: Context) {
         LocationManager.NETWORK_PROVIDER
     )
 
+    @SuppressLint("MissingPermission")
     fun startProviders(): Result<Unit> = runCatching {
         if (!hasLocationPermission(context)) {
             throw SecurityException("Location permission missing")
@@ -40,16 +41,16 @@ class MockLocationEngine(private val context: Context) {
 
         registeredProviders.forEach { provider ->
             runCatching { locationManager.removeTestProvider(provider) }
-            addTestProviderCompat(provider)
+            addTestProviderCompat(locationManager, provider)
             runCatching { locationManager.setTestProviderEnabled(provider, true) }
         }
         providersRegistered = true
 
         initFusedIfAvailable()
-        @SuppressLint("MissingPermission")
         runCatching { fusedClient?.setMockMode(true) }
     }
 
+    @SuppressLint("MissingPermission")
     fun injectLocation(
         lat: Double,
         lng: Double,
@@ -70,7 +71,6 @@ class MockLocationEngine(private val context: Context) {
             locationManager.setTestProviderLocation(provider, loc)
         }
 
-        @SuppressLint("MissingPermission")
         runCatching {
             val fusedLoc = buildLocation(LocationManager.GPS_PROVIDER, finalLat, finalLng, alt, accuracy, now, elapsedNanos)
             fusedClient?.setMockLocation(fusedLoc)
@@ -85,13 +85,13 @@ class MockLocationEngine(private val context: Context) {
         }
     }
 
+    @SuppressLint("MissingPermission")
     fun stopProviders() {
         providersRegistered = false
         registeredProviders.forEach { provider ->
             runCatching { locationManager.setTestProviderEnabled(provider, false) }
             runCatching { locationManager.removeTestProvider(provider) }
         }
-        @SuppressLint("MissingPermission")
         runCatching { fusedClient?.setMockMode(false) }
     }
 
@@ -102,33 +102,6 @@ class MockLocationEngine(private val context: Context) {
         }.getOrDefault(false)
         if (available) {
             fusedClient = LocationServices.getFusedLocationProviderClient(context)
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    private fun addTestProviderCompat(provider: String) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val accuracy = if (provider == LocationManager.GPS_PROVIDER) {
-                ProviderProperties.ACCURACY_FINE
-            } else {
-                ProviderProperties.ACCURACY_COARSE
-            }
-            val props = ProviderProperties.Builder()
-                .setHasAltitudeSupport(true)
-                .setHasSpeedSupport(true)
-                .setHasBearingSupport(true)
-                .setPowerUsage(ProviderProperties.POWER_USAGE_LOW)
-                .setAccuracy(accuracy)
-                .build()
-            locationManager.addTestProvider(provider, props)
-        } else {
-            val accuracy = if (provider == LocationManager.GPS_PROVIDER) 1 else 2
-            locationManager.addTestProvider(
-                provider,
-                false, false, false, false,
-                true, true, true,
-                1, accuracy
-            )
         }
     }
 
@@ -194,21 +167,37 @@ class MockLocationEngine(private val context: Context) {
             return runCatching {
                 val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
                 val probe = "notremock_probe"
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    lm.addTestProvider(
-                        probe,
-                        ProviderProperties.Builder()
-                            .setPowerUsage(ProviderProperties.POWER_USAGE_LOW)
-                            .setAccuracy(ProviderProperties.ACCURACY_FINE)
-                            .build()
-                    )
-                } else {
-                    @Suppress("DEPRECATION")
-                    lm.addTestProvider(probe, false, false, false, false, false, false, false, 1, 1)
-                }
+                addTestProviderCompat(lm, probe)
                 lm.removeTestProvider(probe)
                 true
             }.getOrDefault(false)
+        }
+
+        @Suppress("DEPRECATION")
+        @SuppressLint("WrongConstant")
+        private fun addTestProviderCompat(lm: LocationManager, provider: String) {
+            val isFine = provider != LocationManager.NETWORK_PROVIDER
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val props = ProviderProperties.Builder()
+                    .setHasAltitudeSupport(true)
+                    .setHasSpeedSupport(true)
+                    .setHasBearingSupport(true)
+                    .setPowerUsage(ProviderProperties.POWER_USAGE_LOW)
+                    .setAccuracy(
+                        if (isFine) ProviderProperties.ACCURACY_FINE
+                        else ProviderProperties.ACCURACY_COARSE
+                    )
+                    .build()
+                lm.addTestProvider(provider, props)
+            } else {
+                lm.addTestProvider(
+                    provider,
+                    false, false, false, false,
+                    true, true, true,
+                    1,
+                    if (isFine) 1 else 2
+                )
+            }
         }
 
         fun applyJitter(lat: Double, lng: Double, maxRadiusMeters: Int): Pair<Double, Double> {
