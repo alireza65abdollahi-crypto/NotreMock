@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.asStateFlow
 enum class MockErrorType {
     NONE,
     MOCK_APP_NOT_SELECTED,
-    LOCATION_PERMISSION_MISSING
+    LOCATION_PERMISSION_MISSING,
+    DEVICE_LOCATION_OFF
 }
 
 data class MockRuntimeState(

@@ -176,4 +176,69 @@
     <string name="guide_privacy_body">• همیشه سروری را در VPN انتخاب کنید که کشورش با شهر انتخابی در NotreMock یکی باشد.\n\n• اسکن پس‌زمینه Wi-Fi و بلوتوث را در تنظیمات مکان گوشی خاموش کنید تا اپ‌ها از روی مودم‌های اطراف موقعیت واقعی شما را تشخیص ندهند.\n\n• منطقه زمانی خودکار را خاموش کرده و TimeZone را روی شهر مقصد بگذارید (یا با Shizuku خودکار کنید).\n\n• برای حداکثر حریم خصوصی در گوشی غیرروت: گوشی را روی حالت هواپیما + Wi-Fi بگذارید تا اطلاعات سیم‌کارت و دکل مخابراتی نشت نکند.\n\n• تایل «موقعیت امن NotreMock» را به نوار کنترل بالای گوشی اضافه کنید تا همیشه Kill Switch فوری داشته باشید.</string>
     <string name="guide_limits_body">گوشی استاندارد (بدون روت):\n• Mock GPS در کل سیستم بدون تداخل با VPN کار می‌کند.\n• قابلیت Auto-Pause هنگام باز کردن برنامه‌های مستثنی (نشان، بلد، مپس) موقتاً GPS واقعی را برمی‌گرداند.\n• محدودیت سیستم‌عامل: اپ‌های غیرروت نمی‌توانند اطلاعات سیم‌کارت را از سایر برنامه‌ها مخفی کنند یا همزمان به سرویس پس‌زمینه Find My Device لوکیشن واقعی بدهند.\n\nحالت Shizuku (بدون روت، با Wireless Debugging):\n• تغییر خودکار منطقه زمانی (TimeZone) سیستم را فعال می‌کند.\n\nحالت Root + LSPosed:\n• استثنای واقعی و همزمان برای تمام اپ‌ها (از جمله Find My Device)، جعل کامل سیم‌کارت/دکل، تغییر TimeZone مجزا و پنهان کردن فلگ isMock() را ممکن می‌کند.</string>
     <string name="guide_about_body">NotreMock یک ابزار مینیمال، متن‌باز و متمرکز بر حریم خصوصی برای شبیه‌سازی موقعیت مکانی است.\n\n• بدون تبلیغات، بدون ردیابی و آفلاین.\n• دارای دیتابیس سبک شامل بیش از ۲٬۶۸۰ پایتخت و مرکز استان/ایالت دنیا.\n• پشتیبانی کامل از زبان فارسی و انگلیسی.</string>
+
+    <!-- AppWidget -->
+    <string name="widget_label">ویجت سریع NotreMock</string>
+    <string name="widget_description">روشن/خاموش کردن یک‌لمسی موقعیت جعلی و نمایش شهر فعال</string>
+    <string name="widget_start">شروع</string>
+    <string name="widget_stop">توقف</string>
+    <string name="widget_city_placeholder">انتخاب شهر</string>
+    <string name="pin_widget_btn">افزودن ویجت به صفحه اصلی</string>
+    <string name="pin_widget_unsupported">ویجت NotreMock را از منوی ویجت‌های لانچر گوشی به صفحه اصلی اضافه کنید.</string>
+
+    <!-- Guided Setup Tour & Diagnostics -->
+    <string name="wizard_title">تور مرحله‌ای راه‌اندازی</string>
+    <string name="wizard_step_counter">مرحله %1$d از %2$d</string>
+    <string name="wizard_next">مرحله بعد</string>
+    <string name="wizard_prev">مرحله قبل</string>
+    <string name="wizard_finish">پایان و شروع</string>
+    <string name="wizard_skip">فعلاً رد شو</string>
+    <string name="wizard_open_tour">شروع تور راهنمای مرحله‌ای</string>
+
+    <string name="diag_title">عیب‌یابی زنده سیستم</string>
+    <string name="diag_all_ready">همه پیش‌نیازها درست تنظیم شده و آماده کار است!</string>
+    <string name="diag_issue_loc_perm">علت مشکل: دسترسی موقعیت مکانی داده نشده است (برای سرویس اندروید ۱۴+ الزامی است).</string>
+    <string name="diag_issue_gps_off">علت مشکل: کلید Location / GPS اصلی گوشی خاموش است.</string>
+    <string name="diag_issue_dev_off">علت مشکل: بخش گزینه‌های توسعه‌دهنده (Developer Options) هنوز در گوشی فعال نشده است.</string>
+    <string name="diag_issue_mock_unset">علت مشکل: NotreMock هنوز در تنظیمات توسعه‌دهنده به عنوان اپ Mock Location انتخاب نشده است.</string>
+    <string name="diag_issue_battery">هشدار: بهینه‌سازی باتری فعال است؛ ممکن است گوشی سرویس را در پس‌زمینه ببندد.</string>
+
+    <string name="wizard_step1_title">دسترسی‌ها و مکان گوشی</string>
+    <string name="wizard_step1_desc">برای تزریق موقعیت جعلی به سیستم، اندروید نیاز دارد دسترسی Location را بدهید و کلید GPS/Location گوشی روشن باشد.</string>
+    <string name="wizard_grant_perms">تأیید دسترسی‌ها</string>
+    <string name="wizard_turn_on_gps">باز کردن تنظیمات Location</string>
+
+    <string name="wizard_step2_title">گزینه‌های توسعه‌دهنده و Mock Location</string>
+    <string name="wizard_step2_desc">برند گوشی خود را انتخاب کنید تا دقیقاً طبق منوی گوشی شما، Developer Options و سپس NotreMock را فعال کنید.</string>
+    <string name="wizard_dev_status_on">تنظیمات توسعه‌دهنده: فعال است</string>
+    <string name="wizard_dev_status_off">تنظیمات توسعه‌دهنده: قفل است (طبق راهنمای زیر باز کنید)</string>
+    <string name="wizard_mock_status_on">اپ Mock Location: NotreMock انتخاب شده</string>
+    <string name="wizard_mock_status_off">اپ Mock Location: هنوز انتخاب نشده</string>
+    <string name="wizard_open_about_phone">باز کردن درباره تلفن (About Phone)</string>
+
+    <string name="wizard_step3_title">جلوگیری از بسته شدن خودکار (باتری)</string>
+    <string name="wizard_step3_desc">گوشی‌های سامسونگ، شیائومی و هواوی اپ‌های پس‌زمینه را می‌بندند. مراحل مخصوص برند خود را انجام دهید تا سرویس همیشه زنده بماند.</string>
+    <string name="wizard_open_oem_autostart">باز کردن تنظیمات Autostart / باتری</string>
+    <string name="wizard_open_app_info">باز کردن صفحه اطلاعات برنامه</string>
+
+    <string name="wizard_step4_title">آیکون سریع، ویجت و حریم خصوصی</string>
+    <string name="wizard_step4_desc">• پنل کنترل بالای گوشی (Quick Settings) را پایین بکشید، دکمه ویرایش (مداد) را بزنید و تایل «موقعیت امن NotreMock» را اضافه کنید.\n\n• ویجت استاندارد NotreMock را روی صفحه اصلی بگذارید.\n\n• در گوشی‌های غیرروت، برای جلوگیری از نشت سیم‌کارت از حالت هواپیما + Wi-Fi استفاده کنید.</string>
+
+    <string name="oem_samsung">سامسونگ</string>
+    <string name="oem_xiaomi">شیائومی / پوکو</string>
+    <string name="oem_huawei">هواوی / آنر</string>
+    <string name="oem_oppo">اوپو / ریلمی / وان‌پلاس</string>
+    <string name="oem_stock">پیکسل / خام</string>
+
+    <string name="oem_dev_samsung">۱. وارد تنظیمات ← درباره تلفن (About phone) ← اطلاعات نرم‌افزار (Software information) شوید.\n۲. ۷ بار پیاپی روی «شماره ساخت» (Build number) بزنید و رمز گوشی را وارد کنید.\n۳. به تنظیمات برگردید؛ در پایین‌ترین بخش وارد گزینه‌های توسعه‌دهنده (Developer options) شوید.\n۴. گزینه «انتخاب برنامه مکان آزمایشی» (Select mock location app) را بزنید و NotreMock را انتخاب کنید.</string>
+    <string name="oem_dev_xiaomi">۱. وارد تنظیمات ← درباره تلفن (About phone) شوید.\n۲. ۷ بار روی «نسخه سیستم‌عامل / MIUI / HyperOS» بزنید تا پیام «شما اکنون توسعه‌دهنده هستید» ظاهر شود.\n۳. به تنظیمات ← تنظیمات بیشتر (Additional settings) ← گزینه‌های توسعه‌دهنده بروید.\n۴. روی «انتخاب برنامه مکان ساختگی» (Select mock location app) بزنید و NotreMock را انتخاب کنید.</string>
+    <string name="oem_dev_huawei">۱. وارد تنظیمات ← درباره تلفن (About phone) شوید.\n۲. ۷ بار روی «شماره ساخت» (Build number) بزنید.\n۳. وارد تنظیمات ← سیستم و به‌روزرسانی‌ها ← گزینه‌های توسعه‌دهنده شوید.\n۴. گزینه Select mock location app را روی NotreMock بگذارید.</string>
+    <string name="oem_dev_oppo">۱. وارد تنظیمات ← درباره دستگاه ← نسخه (Version) شوید.\n۲. ۷ بار روی Build number بزنید.\n۳. از System / Additional settings وارد Developer options شوید.\n۴. در بخش Select mock location app برنامه NotreMock را انتخاب کنید.</string>
+    <string name="oem_dev_stock">۱. وارد تنظیمات ← درباره تلفن (About phone) شوید.\n۲. ۷ بار روی Build number بزنید.\n۳. وارد تنظیمات ← سیستم ← Developer options شوید.\n۴. در Select mock location app برنامه NotreMock را انتخاب کنید.</string>
+
+    <string name="oem_bat_samsung">• دکمه «استثنا از بهینه‌سازی باتری» بالا را بزنید و Allow کنید.\n• وارد تنظیمات ← مراقبت از دستگاه (Device care) ← باتری ← محدودیت‌های استفاده پس‌زمینه ← برنامه‌های هرگز در خواب (Never sleeping apps) شوید و NotreMock را اضافه کنید.\n• در اطلاعات برنامه ← باتری، گزینه Unrestricted (نامحدود) را انتخاب کنید.</string>
+    <string name="oem_bat_xiaomi">• دکمه «باز کردن Autostart» را بزنید و اجرای خودکار (Autostart) را برای NotreMock روشن کنید.\n• در اطلاعات برنامه ← صرفه‌جویی باتری (Battery saver) گزینه «بدون محدودیت» (No restrictions) را انتخاب کنید.\n• در صفحه برنامه‌های اخیر (Recents)، دست خود را روی کارت NotreMock نگه دارید و آیکون قفل را بزنید.</string>
+    <string name="oem_bat_huawei">• وارد تنظیمات ← باتری ← راه‌اندازی برنامه (App launch) شوید.\n• NotreMock را پیدا کرده، «مدیریت خودکار» را خاموش کنید و هر ۳ گزینه Auto-launch، Secondary launch و Run in background را روشن بگذارید.</string>
+    <string name="oem_bat_oppo">• در اطلاعات برنامه ← مصرف باتری، گزینه‌های Allow background activity و Allow auto-launch را روشن کنید.\n• برنامه را در صفحه Recents قفل کنید تا توسط سیستم بسته نشود.</string>
+    <string name="oem_bat_stock">• دکمه «استثنا از بهینه‌سازی باتری» را بزنید.\n• در اطلاعات برنامه ← مصرف باتری برنامه، گزینه «نامحدود» (Unrestricted) را انتخاب کنید.</string>
 </resources>

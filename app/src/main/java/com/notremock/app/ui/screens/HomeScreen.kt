@@ -63,6 +63,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.notremock.app.R
 import com.notremock.app.core.location.MockErrorType
+import com.notremock.app.core.privacy.SetupDiagnostics
 import com.notremock.app.core.privacy.SystemIntentHelper
 import com.notremock.app.core.privacy.TimeZoneApplyResult
 import com.notremock.app.data.model.City
@@ -77,7 +78,8 @@ fun HomeScreen(
     viewModel: MainViewModel,
     onRequestPermissions: () -> Unit,
     onOpenSettings: () -> Unit,
-    onOpenGuide: () -> Unit
+    onOpenGuide: () -> Unit,
+    onOpenWizard: () -> Unit
 ) {
     val context = LocalContext.current
     val clipboard = LocalClipboardManager.current
@@ -91,7 +93,7 @@ fun HomeScreen(
     val searchResults by viewModel.searchResults.collectAsState()
     val totalCount by viewModel.totalCitiesCount.collectAsState()
     val audit by viewModel.auditReport.collectAsState()
-    val hasLocPerm by viewModel.hasLocationPermission.collectAsState()
+    val diagnostics by viewModel.diagnostics.collectAsState()
     val tzFeedback by viewModel.tzFeedback.collectAsState()
 
     LaunchedEffect(tzFeedback) {
@@ -170,13 +172,14 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             // Setup Alert Card (auto-hides when ready)
-            if (!hasLocPerm || !audit.isMockAppSelected || runtime.errorType != MockErrorType.NONE) {
+            if (!diagnostics.isCoreReady || runtime.errorType != MockErrorType.NONE) {
                 item {
                     SetupChecklistCard(
-                        hasLocationPermission = hasLocPerm,
-                        isMockSelected = audit.isMockAppSelected,
+                        diagnostics = diagnostics,
                         onRequestLocation = onRequestPermissions,
-                        onOpenDevOptions = { SystemIntentHelper.openDeveloperOptions(context) }
+                        onOpenLocationSettings = { SystemIntentHelper.openLocationSettings(context) },
+                        onOpenDevOptions = { SystemIntentHelper.openDeveloperOptions(context) },
+                        onOpenWizard = onOpenWizard
                     )
                 }
             }
@@ -194,10 +197,8 @@ fun HomeScreen(
                     bypassCount = if (settings.bypassEnabled) settings.bypassPackages.size else 0,
                     isTzMatching = audit.isTimeZoneMatching,
                     onToggleStartStop = {
-                        if (!hasLocPerm) {
-                            onRequestPermissions()
-                        } else if (!audit.isMockAppSelected) {
-                            SystemIntentHelper.openDeveloperOptions(context)
+                        if (!diagnostics.isCoreReady) {
+                            onOpenWizard()
                         } else {
                             viewModel.toggleMocking()
                         }
@@ -292,11 +293,20 @@ fun HomeScreen(
 
 @Composable
 private fun SetupChecklistCard(
-    hasLocationPermission: Boolean,
-    isMockSelected: Boolean,
+    diagnostics: SetupDiagnostics,
     onRequestLocation: () -> Unit,
-    onOpenDevOptions: () -> Unit
+    onOpenLocationSettings: () -> Unit,
+    onOpenDevOptions: () -> Unit,
+    onOpenWizard: () -> Unit
 ) {
+    val diagMessage = when {
+        !diagnostics.hasLocationPermission -> stringResource(R.string.diag_issue_loc_perm)
+        !diagnostics.isDeviceLocationOn -> stringResource(R.string.diag_issue_gps_off)
+        !diagnostics.isDeveloperOptionsOn -> stringResource(R.string.diag_issue_dev_off)
+        !diagnostics.isMockAppSelected -> stringResource(R.string.diag_issue_mock_unset)
+        else -> stringResource(R.string.setup_mock_app)
+    }
+
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
         shape = RoundedCornerShape(16.dp),
@@ -316,33 +326,34 @@ private fun SetupChecklistCard(
                     color = MaterialTheme.colorScheme.onErrorContainer
                 )
             }
-            if (!hasLocationPermission) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
+            Text(
+                text = diagMessage,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onErrorContainer
+            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(
+                    onClick = onOpenWizard,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.onErrorContainer,
+                        contentColor = MaterialTheme.colorScheme.errorContainer
+                    ),
+                    modifier = Modifier.weight(1f)
                 ) {
-                    Text(
-                        text = stringResource(R.string.setup_location_perm),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onErrorContainer,
-                        modifier = Modifier.weight(1f)
-                    )
+                    Text(stringResource(R.string.wizard_open_tour), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                }
+                if (!diagnostics.hasLocationPermission) {
                     TextButton(onClick = onRequestLocation) {
                         Text(stringResource(R.string.enable), fontWeight = FontWeight.Bold)
                     }
-                }
-            }
-            if (!isMockSelected) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = stringResource(R.string.setup_mock_app),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onErrorContainer,
-                        modifier = Modifier.weight(1f)
-                    )
+                } else if (!diagnostics.isDeviceLocationOn) {
+                    TextButton(onClick = onOpenLocationSettings) {
+                        Text(stringResource(R.string.fix_now), fontWeight = FontWeight.Bold)
+                    }
+                } else if (diagnostics.isDeveloperOptionsOn && !diagnostics.isMockAppSelected) {
                     TextButton(onClick = onOpenDevOptions) {
                         Text(stringResource(R.string.open_dev_options), fontWeight = FontWeight.Bold)
                     }

@@ -1,5 +1,9 @@
 package com.notremock.app.ui.screens
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.os.Build
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -53,13 +57,15 @@ import com.notremock.app.ui.components.BypassAppsDialog
 import com.notremock.app.ui.theme.AmberWarning
 import com.notremock.app.ui.theme.EmeraldPrimary
 import com.notremock.app.ui.viewmodel.MainViewModel
+import com.notremock.app.widget.NotreMockWidgetProvider
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     viewModel: MainViewModel,
     onBack: () -> Unit,
-    onOpenAdvanced: () -> Unit
+    onOpenAdvanced: () -> Unit,
+    onOpenWizard: () -> Unit
 ) {
     val context = LocalContext.current
     val settings by viewModel.settings.collectAsState()
@@ -167,6 +173,36 @@ fun SettingsScreen(
                             TextButton(onClick = { SystemIntentHelper.requestBatteryExemption(context) }) {
                                 Text(stringResource(R.string.fix_now))
                             }
+                        }
+                    }
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        OutlinedButton(
+                            onClick = onOpenWizard,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(stringResource(R.string.wizard_open_tour))
+                        }
+                        OutlinedButton(
+                            onClick = {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    val mgr = AppWidgetManager.getInstance(context)
+                                    val provider = ComponentName(context, NotreMockWidgetProvider::class.java)
+                                    if (mgr.isRequestPinAppWidgetSupported) {
+                                        mgr.requestPinAppWidget(provider, null, null)
+                                    } else {
+                                        Toast.makeText(context, context.getString(R.string.pin_widget_unsupported), Toast.LENGTH_LONG).show()
+                                    }
+                                } else {
+                                    Toast.makeText(context, context.getString(R.string.pin_widget_unsupported), Toast.LENGTH_LONG).show()
+                                }
+                            },
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(stringResource(R.string.pin_widget_btn))
                         }
                     }
                 }

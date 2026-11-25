@@ -19,10 +19,12 @@ import com.notremock.app.R
 import com.notremock.app.core.location.MockErrorType
 import com.notremock.app.core.location.MockLocationEngine
 import com.notremock.app.core.location.MockState
+import com.notremock.app.core.privacy.OemGuideHelper
 import com.notremock.app.data.db.CityDatabaseHelper
 import com.notremock.app.data.model.City
 import com.notremock.app.data.prefs.PanicAction
 import com.notremock.app.data.prefs.PreferencesRepository
+import com.notremock.app.widget.NotreMockWidgetProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -82,6 +84,11 @@ class MockForegroundService : Service() {
     private suspend fun startMocking(requestedCityId: Long) {
         if (!MockLocationEngine.hasLocationPermission(this)) {
             MockState.update { it.copy(isRunning = false, errorType = MockErrorType.LOCATION_PERMISSION_MISSING) }
+            stopSelf()
+            return
+        }
+        if (!OemGuideHelper.isDeviceLocationEnabled(this)) {
+            MockState.update { it.copy(isRunning = false, errorType = MockErrorType.DEVICE_LOCATION_OFF) }
             stopSelf()
             return
         }
@@ -314,6 +321,7 @@ class MockForegroundService : Service() {
         runCatching {
             TileService.requestListeningState(this, ComponentName(this, MockTileService::class.java))
         }
+        NotreMockWidgetProvider.refreshAll(this)
     }
 
     override fun onDestroy() {

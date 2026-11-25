@@ -176,4 +176,69 @@
     <string name="guide_privacy_body">• Use a VPN whose exit country matches your mocked city.\n\n• Turn OFF Wi-Fi Scanning &amp; Bluetooth Scanning in Location Settings so apps cannot infer your location from nearby routers.\n\n• Turn OFF Automatic TimeZone and set the city\'s TimeZone (or use Shizuku for 1-tap automatic sync).\n\n• For maximum privacy on non-root phones: enable Airplane Mode + Wi-Fi so cellular towers and SIM MCC/MNC cannot leak your region.\n\n• Add Quick Settings Tile ("NotreMock GPS") to your top shade for an instant Kill Switch.</string>
     <string name="guide_limits_body">Standard Android (No Root):\n• Mock GPS works system-wide with zero VPN conflict.\n• Auto-Pause temporarily restores real GPS when you open bypassed foreground apps (Neshan, Balad, Maps).\n• Android blocks non-root apps from hiding SIM info from other apps or excluding background services like Find My Device simultaneously.\n\nShizuku (No Root, Wireless Debugging):\n• Unlocks automatic system TimeZone switching.\n\nRoot + LSPosed:\n• Unlocks true simultaneous per-app bypass (including Find My Device), SIM/MCC/Cell spoofing, per-app TimeZone, and hiding the isMock() flag.</string>
     <string name="guide_about_body">NotreMock is a minimal, privacy-first, open-source Mock Location utility.\n\n• Zero telemetry, zero ads, offline-first by design.\n• Pre-loaded with ~2,680+ world capitals &amp; provincial capitals.\n• Supports English &amp; Persian (RTL).</string>
+
+    <!-- AppWidget -->
+    <string name="widget_label">NotreMock Quick Toggle</string>
+    <string name="widget_description">One-tap Mock Location start/stop and current city status</string>
+    <string name="widget_start">Start</string>
+    <string name="widget_stop">Stop</string>
+    <string name="widget_city_placeholder">Select city</string>
+    <string name="pin_widget_btn">Add Widget to Home Screen</string>
+    <string name="pin_widget_unsupported">Add NotreMock widget from your launcher\'s Widgets menu.</string>
+
+    <!-- Guided Setup Tour & Diagnostics -->
+    <string name="wizard_title">Guided Setup Tour</string>
+    <string name="wizard_step_counter">Step %1$d of %2$d</string>
+    <string name="wizard_next">Next</string>
+    <string name="wizard_prev">Previous</string>
+    <string name="wizard_finish">Finish</string>
+    <string name="wizard_skip">Skip for now</string>
+    <string name="wizard_open_tour">Guided Setup Tour</string>
+
+    <string name="diag_title">Live System Diagnostics</string>
+    <string name="diag_all_ready">Everything is configured and ready!</string>
+    <string name="diag_issue_loc_perm">Problem: Location permission is not granted (required by Android 14+ to run location service).</string>
+    <string name="diag_issue_gps_off">Problem: Phone\'s master Location/GPS toggle is turned OFF.</string>
+    <string name="diag_issue_dev_off">Problem: Developer Options is still hidden/disabled on this phone.</string>
+    <string name="diag_issue_mock_unset">Problem: NotreMock is not selected under "Select mock location app" in Developer Options.</string>
+    <string name="diag_issue_battery">Warning: Battery optimization is restricting NotreMock; Android may stop it in background.</string>
+
+    <string name="wizard_step1_title">Permissions &amp; Phone Location</string>
+    <string name="wizard_step1_desc">Android requires Location permission and the device\'s Location toggle to be ON so NotreMock can inject mock coordinates into the system.</string>
+    <string name="wizard_grant_perms">Grant Permissions</string>
+    <string name="wizard_turn_on_gps">Open Location Settings</string>
+
+    <string name="wizard_step2_title">Developer Options &amp; Mock App</string>
+    <string name="wizard_step2_desc">Select your phone brand below to unlock Developer Options and set NotreMock as the default Mock Location App.</string>
+    <string name="wizard_dev_status_on">Developer Options: Unlocked</string>
+    <string name="wizard_dev_status_off">Developer Options: Locked (Follow steps below)</string>
+    <string name="wizard_mock_status_on">Mock Location App: NotreMock Selected</string>
+    <string name="wizard_mock_status_off">Mock Location App: Not Selected Yet</string>
+    <string name="wizard_open_about_phone">Open About Phone</string>
+
+    <string name="wizard_step3_title">Prevent Background Killing (Battery)</string>
+    <string name="wizard_step3_desc">Phone makers aggressively kill background apps. Follow your phone brand\'s exact steps below so NotreMock stays alive permanently.</string>
+    <string name="wizard_open_oem_autostart">Open Autostart / Battery Settings</string>
+    <string name="wizard_open_app_info">Open App Battery Info</string>
+
+    <string name="wizard_step4_title">Quick Tile, Widget &amp; Privacy</string>
+    <string name="wizard_step4_desc">• Pull down your top Quick Settings panel, tap Edit (pencil), and add "NotreMock GPS" for an instant Kill Switch.\n\n• Add the NotreMock Home Screen Widget for 1-tap toggle.\n\n• Use Airplane Mode + Wi-Fi on non-root phones for 100% cellular privacy.</string>
+
+    <string name="oem_samsung">Samsung</string>
+    <string name="oem_xiaomi">Xiaomi / POCO</string>
+    <string name="oem_huawei">Huawei / Honor</string>
+    <string name="oem_oppo">Oppo / Realme / 1+</string>
+    <string name="oem_stock">Pixel / Stock</string>
+
+    <string name="oem_dev_samsung">1. Open Settings → About phone → Software information.\n2. Tap "Build number" 7 times (enter PIN if asked).\n3. Go back to Settings → Developer options (at the bottom).\n4. Scroll to "Select mock location app" and choose NotreMock.</string>
+    <string name="oem_dev_xiaomi">1. Open Settings → About phone.\n2. Tap "OS version" / "MIUI version" 7 times until "You are now a developer" appears.\n3. Go to Settings → Additional settings → Developer options.\n4. Tap "Select mock location app" and choose NotreMock.</string>
+    <string name="oem_dev_huawei">1. Open Settings → About phone.\n2. Tap "Build number" 7 times.\n3. Go to Settings → System &amp; updates → Developer options.\n4. Tap "Select mock location app" and choose NotreMock.</string>
+    <string name="oem_dev_oppo">1. Open Settings → About device → Version.\n2. Tap "Build number" 7 times.\n3. Go to Settings → System settings (or Additional settings) → Developer options.\n4. Tap "Select mock location app" and choose NotreMock.</string>
+    <string name="oem_dev_stock">1. Open Settings → About phone.\n2. Tap "Build number" 7 times.\n3. Go to Settings → System → Developer options.\n4. Tap "Select mock location app" and choose NotreMock.</string>
+
+    <string name="oem_bat_samsung">• Tap "Exempt Battery Optimization" above (choose Allow).\n• Open Settings → Device care → Battery → Background usage limits → Never sleeping apps → tap (+) and add NotreMock.\n• In App info → Battery → select "Unrestricted".</string>
+    <string name="oem_bat_xiaomi">• Tap "Open Autostart" above and enable Autostart for NotreMock.\n• In App info → Battery saver → choose "No restrictions".\n• Open Recent Apps, long-press NotreMock card, and tap the Lock icon.</string>
+    <string name="oem_bat_huawei">• Open Settings → Battery → App launch.\n• Find NotreMock, turn OFF "Manage automatically", and enable all 3 toggles: Auto-launch, Secondary launch, and Run in background.</string>
+    <string name="oem_bat_oppo">• In App info → Battery usage → enable "Allow background activity" and "Allow auto-launch".\n• Lock NotreMock in the Recent Apps screen so it is not cleared.</string>
+    <string name="oem_bat_stock">• Tap "Exempt Battery Optimization" above.\n• In App info → App battery usage → enable "Allow background usage" and choose "Unrestricted".</string>
 </resources>

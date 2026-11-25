@@ -1,9 +1,11 @@
 package com.notremock.app.ui.viewmodel
 
+import android.Manifest
 import android.app.Application
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.notremock.app.NotreMockApp
@@ -11,8 +13,10 @@ import com.notremock.app.core.location.MockLocationEngine
 import com.notremock.app.core.location.MockRuntimeState
 import com.notremock.app.core.location.MockState
 import com.notremock.app.core.privacy.IpCheckState
+import com.notremock.app.core.privacy.OemGuideHelper
 import com.notremock.app.core.privacy.PrivacyAuditReport
 import com.notremock.app.core.privacy.PrivacyAuditor
+import com.notremock.app.core.privacy.SetupDiagnostics
 import com.notremock.app.core.privacy.ShizukuStatus
 import com.notremock.app.core.privacy.SystemIntentHelper
 import com.notremock.app.core.privacy.TimeZoneApplyResult
@@ -27,6 +31,7 @@ import com.notremock.app.data.prefs.ThemeMode
 import com.notremock.app.data.prefs.TimeZoneMode
 import com.notremock.app.service.AppMonitorAccessibilityService
 import com.notremock.app.service.MockForegroundService
+import com.notremock.app.widget.NotreMockWidgetProvider
 import com.notremock.app.xposed.XposedStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -96,6 +101,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _tzFeedback = MutableStateFlow<TimeZoneApplyResult?>(null)
     val tzFeedback: StateFlow<TimeZoneApplyResult?> = _tzFeedback.asStateFlow()
 
+    private val _diagnostics = MutableStateFlow(
+        SetupDiagnostics(
+            hasLocationPermission = false,
+            isDeviceLocationOn = true,
+            isDeveloperOptionsOn = false,
+            isMockAppSelected = false,
+            isBatteryExempt = true,
+            hasNotificationPermission = true
+        )
+    )
+    val diagnostics: StateFlow<SetupDiagnostics> = _diagnostics.asStateFlow()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _totalCitiesCount.value = cityDb.getTotalCount()
@@ -121,11 +138,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun refreshStatus() {
         viewModelScope.launch(Dispatchers.IO) {
             val targetCity = runtimeState.value.activeCity ?: _selectedCity.value
-            _hasLocationPermission.value = MockLocationEngine.hasLocationPermission(ctx)
-            _isBatteryExempt.value = SystemIntentHelper.isIgnoringBatteryOptimizations(ctx)
+            val locPerm = MockLocationEngine.hasLocationPermission(ctx)
+            val batteryExempt = SystemIntentHelper.isIgnoringBatteryOptimizations(ctx)
+            val audit = PrivacyAuditor.runAudit(ctx, targetCity)
+            val notifPerm = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ContextCompat.checkSelfPermission(ctx, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+            } else {
+                true
+            }
+            _hasLocationPermission.value = locPerm
+            _isBatteryExempt.value = batteryExempt
             _isAccessibilityEnabled.value = AppMonitorAccessibilityService.isServiceEnabled(ctx)
             _shizukuStatus.value = TimeZoneController.checkShizukuStatus()
-            _auditReport.value = PrivacyAuditor.runAudit(ctx, targetCity)
+            _auditReport.value = audit
+            _diagnostics.value = SetupDiagnostics(
+                hasLocationPermission = locPerm,
+                isDeviceLocationOn = OemGuideHelper.isDeviceLocationEnabled(ctx),
+                isDeveloperOptionsOn = OemGuideHelper.isDeveloperOptionsEnabled(ctx),
+                isMockAppSelected = audit.isMockAppSelected,
+                isBatteryExempt = batteryExempt,
+                hasNotificationPermission = notifPerm
+            )
         }
     }
 
@@ -144,8 +177,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             if (startIfRunning && runtimeState.value.isRunning) {
                 MockForegroundService.start(ctx, city.id)
             }
+            NotreMockWidgetProvider.refreshAll(ctx)
             refreshStatus()
         }
+    }
+
+    fun completeOnboarding() {
+        viewModelScope.launch { prefsRepo.setOnboardingCompleted(true) }
     }
 
     fun toggleMocking() {

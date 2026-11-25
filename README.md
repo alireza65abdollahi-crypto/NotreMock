@@ -8,7 +8,8 @@
 
 ## Key Features
 
-- **Minimal One-Tap Home UI**: Instantly resume your last selected city & privacy settings with one tap.
+- **Minimal One-Tap Home UI & Home Screen Widget**: Instantly resume your last selected city & privacy settings with one tap from the app, **Home Screen Widget**, or **Quick Settings Tile**.
+- **Guided Setup Tour & Live Diagnostics**: Automatic step-by-step onboarding with brand-specific instructions (**Samsung, Xiaomi/HyperOS, Huawei/Honor, Oppo/Realme/OnePlus, Stock**) for unlocking Developer Options, setting Mock Location, and preventing background battery killing—plus live pinpointing of exact setup blockers.
 - **Offline World Cities Database**: ~2,684 world national capitals and provincial/state capitals (including all 31 Iranian provincial capitals) searchable in both **English** and **Persian** — fast, lightweight, and 100% offline.
 - **Zero VPN Conflict**: Does **not** occupy Android's `VpnService` slot. Run any VPN (V2Ray, WireGuard, OpenVPN, etc.) simultaneously while all apps read your mocked GPS location.
 - **Smart App Bypass (Non-Root Auto-Pause)**: Uses a privacy-minimal `AccessibilityService` (`canRetrieveWindowContent="false"`) to pause mock GPS automatically when you open bypassed apps (e.g., Neshan, Balad, Google Maps, Waze, Snapp, Tapsi) and resume when you leave.

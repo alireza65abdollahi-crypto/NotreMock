@@ -28,6 +28,7 @@ import com.notremock.app.ui.screens.AdvancedSettingsScreen
 import com.notremock.app.ui.screens.GuideScreen
 import com.notremock.app.ui.screens.HomeScreen
 import com.notremock.app.ui.screens.SettingsScreen
+import com.notremock.app.ui.screens.SetupWizardScreen
 import com.notremock.app.ui.theme.NotreMockTheme
 import com.notremock.app.ui.viewmodel.MainViewModel
 
@@ -71,20 +72,29 @@ class MainActivity : AppCompatActivity() {
             NotreMockTheme(darkTheme = darkTheme) {
                 if (isUnlocked || !settings.biometricLock) {
                     val navController = rememberNavController()
+                    LaunchedEffect(settings.hasCompletedOnboarding) {
+                        if (!settings.hasCompletedOnboarding &&
+                            navController.currentDestination?.route == Route.HOME
+                        ) {
+                            navController.navigate(Route.SETUP_WIZARD)
+                        }
+                    }
                     NavHost(navController = navController, startDestination = Route.HOME) {
                         composable(Route.HOME) {
                             HomeScreen(
                                 viewModel = viewModel,
                                 onRequestPermissions = ::requestCorePermissions,
                                 onOpenSettings = { navController.navigate(Route.SETTINGS) },
-                                onOpenGuide = { navController.navigate(Route.GUIDE) }
+                                onOpenGuide = { navController.navigate(Route.GUIDE) },
+                                onOpenWizard = { navController.navigate(Route.SETUP_WIZARD) }
                             )
                         }
                         composable(Route.SETTINGS) {
                             SettingsScreen(
                                 viewModel = viewModel,
                                 onBack = { navController.popBackStack() },
-                                onOpenAdvanced = { navController.navigate(Route.ADVANCED) }
+                                onOpenAdvanced = { navController.navigate(Route.ADVANCED) },
+                                onOpenWizard = { navController.navigate(Route.SETUP_WIZARD) }
                             )
                         }
                         composable(Route.ADVANCED) {
@@ -96,6 +106,13 @@ class MainActivity : AppCompatActivity() {
                         composable(Route.GUIDE) {
                             GuideScreen(
                                 onBack = { navController.popBackStack() }
+                            )
+                        }
+                        composable(Route.SETUP_WIZARD) {
+                            SetupWizardScreen(
+                                viewModel = viewModel,
+                                onRequestPermissions = ::requestCorePermissions,
+                                onDone = { navController.popBackStack() }
                             )
                         }
                     }
@@ -186,6 +203,7 @@ class MainActivity : AppCompatActivity() {
         const val SETTINGS = "settings"
         const val ADVANCED = "advanced"
         const val GUIDE = "guide"
+        const val SETUP_WIZARD = "setup_wizard"
     }
 
     companion object {

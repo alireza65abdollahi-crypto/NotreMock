@@ -55,6 +55,7 @@ data class AppSettings(
     val biometricLock: Boolean = false,
     val timeZoneMode: TimeZoneMode = TimeZoneMode.MANUAL,
     val allowIpCheck: Boolean = false,
+    val hasCompletedOnboarding: Boolean = false,
     // Root / LSPosed Pro options
     val xposedHideSim: Boolean = false,
     val xposedHideIsMock: Boolean = false,
@@ -96,6 +97,7 @@ class PreferencesRepository(private val context: Context) {
         val BIOMETRIC_LOCK = booleanPreferencesKey("biometric_lock")
         val TIMEZONE_MODE = stringPreferencesKey("timezone_mode")
         val ALLOW_IP_CHECK = booleanPreferencesKey("allow_ip_check")
+        val HAS_COMPLETED_ONBOARDING = booleanPreferencesKey("has_completed_onboarding")
         val XPOSED_HIDE_SIM = booleanPreferencesKey("xposed_hide_sim")
         val XPOSED_HIDE_ISMOCK = booleanPreferencesKey("xposed_hide_ismock")
         val XPOSED_PER_APP_TZ = booleanPreferencesKey("xposed_per_app_tz")
@@ -128,6 +130,7 @@ class PreferencesRepository(private val context: Context) {
             timeZoneMode = runCatching { TimeZoneMode.valueOf(prefs[Keys.TIMEZONE_MODE] ?: "MANUAL") }
                 .getOrDefault(TimeZoneMode.MANUAL),
             allowIpCheck = prefs[Keys.ALLOW_IP_CHECK] ?: false,
+            hasCompletedOnboarding = prefs[Keys.HAS_COMPLETED_ONBOARDING] ?: false,
             xposedHideSim = prefs[Keys.XPOSED_HIDE_SIM] ?: false,
             xposedHideIsMock = prefs[Keys.XPOSED_HIDE_ISMOCK] ?: false,
             xposedPerAppTz = prefs[Keys.XPOSED_PER_APP_TZ] ?: false,
@@ -218,6 +221,10 @@ class PreferencesRepository(private val context: Context) {
 
     suspend fun updateAllowIpCheck(enabled: Boolean) {
         context.dataStore.edit { it[Keys.ALLOW_IP_CHECK] = enabled }
+    }
+
+    suspend fun setOnboardingCompleted(completed: Boolean) {
+        context.dataStore.edit { it[Keys.HAS_COMPLETED_ONBOARDING] = completed }
     }
 
     suspend fun updateXposedSettings(

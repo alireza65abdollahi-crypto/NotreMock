@@ -115,6 +115,20 @@
             </intent-filter>
         </receiver>
 
+        <!-- Home Screen AppWidget -->
+        <receiver
+            android:name=".widget.NotreMockWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.notremock.app.ACTION_WIDGET_TOGGLE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/notremock_widget_info" />
+        </receiver>
+
         <!-- Locale storage helper for Android < 13 -->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
