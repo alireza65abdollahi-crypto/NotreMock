@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="xposed_scope">
+        <item>com.notremock.app</item>
+        <item>com.whatsapp</item>
+        <item>org.telegram.messenger</item>
+        <item>com.instagram.android</item>
+        <item>com.google.android.gms</item>
+    </string-array>
+</resources>

@@ -1,0 +1,13 @@
+package de.robv.android.xposed;
+
+public final class XposedHelpers {
+    public static XC_MethodHook.MethodHookParam findAndHookMethod(
+            String className, ClassLoader classLoader, String methodName, Object... parameterTypesAndCallback) {
+        return null;
+    }
+
+    public static XC_MethodHook.MethodHookParam findAndHookMethod(
+            Class<?> clazz, String methodName, Object... parameterTypesAndCallback) {
+        return null;
+    }
+}

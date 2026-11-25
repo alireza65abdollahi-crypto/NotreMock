@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NotreMock</string>
+    <string name="tile_label">NotreMock GPS</string>
+    <string name="accessibility_service_label">NotreMock Auto-Pause</string>
+    <string name="accessibility_service_description">Detects only the foreground app package name to automatically pause Mock Location when you open bypassed apps (e.g. Neshan, Balad, Maps). Never reads screen text or content.</string>
+
+    <!-- Navigation & Common -->
+    <string name="nav_home">Home</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_advanced">Advanced</string>
+    <string name="nav_guide">Guide</string>
+    <string name="back">Back</string>
+    <string name="close">Close</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="apply">Apply</string>
+    <string name="enable">Enable</string>
+    <string name="fix_now">Fix</string>
+    <string name="open_settings">Open</string>
+    <string name="copy">Copy</string>
+    <string name="copied">Copied</string>
+
+    <!-- Home Screen -->
+    <string name="privacy_score_label">Privacy %d%%</string>
+    <string name="status_active">Mock Location Active</string>
+    <string name="status_paused">Auto-Paused (%s)</string>
+    <string name="status_inactive">Protection Off</string>
+    <string name="status_error_revoked">Mock Permission Revoked!</string>
+    <string name="tap_to_start">Tap to Start Last Profile</string>
+    <string name="tap_to_stop">Tap to Stop</string>
+    <string name="kill_switch_panic">Kill Switch</string>
+    <string name="randomize_point">Randomize</string>
+    <string name="no_city_selected">Select a city below to start</string>
+    <string name="last_city_prefix">Last: %1$s, %2$s</string>
+    <string name="vpn_independent_badge">VPN: Independent</string>
+    <string name="bypass_count_badge">Bypass: %d apps</string>
+    <string name="tz_match_badge">TZ: Match</string>
+    <string name="tz_mismatch_badge">TZ: Mismatch</string>
+
+    <!-- Setup Checklist Card (shown when permissions missing) -->
+    <string name="setup_needed_title">Quick Setup Required</string>
+    <string name="setup_location_perm">Grant Location Permission (Required for Android 14+ Foreground Service)</string>
+    <string name="setup_mock_app">Select NotreMock as Mock Location App in Developer Options</string>
+    <string name="setup_notif_perm">Allow Notifications (Watchdog &amp; Quick Controls)</string>
+    <string name="open_dev_options">Developer Options</string>
+
+    <!-- City Search & Favorites -->
+    <string name="search_cities_hint">Search capital, province, or country…</string>
+    <string name="favorites_recent">Favorites &amp; Recent</string>
+    <string name="all_cities_count">World Capitals &amp; Provinces (%d)</string>
+    <string name="capital_badge">Capital</string>
+    <string name="no_cities_found">No matching city found</string>
+    <string name="favorite_toggle">Toggle favorite</string>
+
+    <!-- Notification Channels & Messages -->
+    <string name="notif_channel_service">Mock Location Service</string>
+    <string name="notif_channel_alerts">Privacy &amp; Kill Switch Alerts</string>
+    <string name="notif_active_title">NotreMock Active: %1$s</string>
+    <string name="notif_active_stealth_title">NotreMock Service Active</string>
+    <string name="notif_active_body">TZ: %1$s • Tap Kill Switch to stop immediately</string>
+    <string name="notif_paused_title">NotreMock Auto-Paused (%1$s)</string>
+    <string name="notif_paused_body">Real GPS temporarily restored for bypassed app</string>
+    <string name="notif_action_stop">Kill Switch</string>
+    <string name="notif_action_pause">Pause</string>
+    <string name="notif_action_resume">Resume</string>
+    <string name="notif_leak_title">Privacy Alert: Mock Location Interrupted!</string>
+    <string name="notif_leak_body">Mock location permission was revoked or stopped. Real GPS may be exposed.</string>
+    <string name="notif_boot_fallback_title">Tap to Resume NotreMock</string>
+    <string name="notif_boot_fallback_body">Android restricted background location start after boot. Tap to resume %1$s.</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="section_general">General</string>
+    <string name="setting_language">Language</string>
+    <string name="lang_system">System Default</string>
+    <string name="lang_en">English</string>
+    <string name="lang_fa">فارسی (Persian)</string>
+    <string name="setting_theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+    <string name="setting_boot_start">Start Automatically on Boot</string>
+    <string name="setting_boot_start_desc">Restore last mock location when phone restarts</string>
+    <string name="setting_battery_opt">Battery Optimization Exemption</string>
+    <string name="setting_battery_opt_ok">Unrestricted (Recommended)</string>
+    <string name="setting_battery_opt_warn">Restricted — system may kill service</string>
+
+    <string name="section_bypass">App Bypass (Auto-Pause)</string>
+    <string name="bypass_enable">Enable Smart Auto-Pause</string>
+    <string name="bypass_enable_desc">Automatically pause mock GPS when opening selected apps</string>
+    <string name="bypass_accessibility_ok">Auto-Pause Monitor Active</string>
+    <string name="bypass_accessibility_needed">Enable Accessibility Monitor for Auto-Pause</string>
+    <string name="bypass_accessibility_privacy">Only reads foreground package name; never reads screen content.</string>
+    <string name="bypass_manage_apps">Manage Bypassed Apps (%d)</string>
+    <string name="bypass_picker_title">Bypassed Apps</string>
+    <string name="bypass_presets_note">Common Iranian &amp; global navigation apps are pre-listed. Note: background-only apps like Find My Device require Root/LSPosed for simultaneous bypass.</string>
+    <string name="search_apps_hint">Search installed apps…</string>
+
+    <string name="section_privacy_audit">Privacy &amp; Leak Checkup</string>
+    <string name="audit_mock_app">Mock Location App Selected</string>
+    <string name="audit_timezone_match">System TimeZone Matches City</string>
+    <string name="audit_auto_tz_off">Automatic TimeZone Disabled</string>
+    <string name="audit_wifi_scan_off">Wi-Fi Background Scanning Disabled</string>
+    <string name="audit_bt_scan_off">Bluetooth Background Scanning Disabled</string>
+    <string name="audit_sim_risk">Cellular / SIM Exposure</string>
+    <string name="audit_sim_ok">Airplane Mode / No Active SIM</string>
+    <string name="audit_sim_warn">SIM active — non-root apps cannot hide SIM country/MCC from other apps. Use Airplane Mode + Wi-Fi for max privacy.</string>
+    <string name="audit_ip_check">VPN / IP Country Check</string>
+    <string name="audit_ip_checking">Checking…</string>
+    <string name="audit_ip_match">IP Country (%1$s) matches mocked city</string>
+    <string name="audit_ip_mismatch">IP Country (%1$s) differs from mocked city (%2$s)</string>
+    <string name="audit_ip_error">Check failed or offline</string>
+    <string name="run_ip_check">Check Now</string>
+
+    <string name="advanced_entry_title">Advanced &amp; Pro Settings</string>
+    <string name="advanced_entry_desc">GPS realism, Kill Switch, TimeZone engine, IP check, Root/LSPosed</string>
+
+    <!-- Advanced Settings -->
+    <string name="advanced_title">Advanced Settings</string>
+    <string name="section_realism">Location Realism</string>
+    <string name="adv_jitter">Natural GPS Drift (Jitter): %d m</string>
+    <string name="adv_city_radius">Randomize Radius Inside City: %.1f km</string>
+    <string name="adv_interval">Update Interval: %d ms</string>
+    <string name="adv_altitude">Realistic Altitude: %d m</string>
+
+    <string name="section_kill_switch">Kill Switch &amp; Watchdog</string>
+    <string name="adv_watchdog">Leak Watchdog Alert</string>
+    <string name="adv_watchdog_desc">Sound critical alarm if OS revokes Mock Location while active</string>
+    <string name="adv_stealth_notif">Stealth Notification</string>
+    <string name="adv_stealth_notif_desc">Hide city name and coordinates from lock-screen notification</string>
+    <string name="adv_panic_action">Kill Switch Action</string>
+    <string name="panic_stop">Stop Mocking Completely</string>
+    <string name="panic_fallback">Jump to Safe Fallback City</string>
+    <string name="adv_fallback_city">Safe Fallback City: %s</string>
+    <string name="adv_biometric_lock">Biometric / PIN App Lock</string>
+    <string name="adv_biometric_lock_desc">Require authentication before opening NotreMock</string>
+    <string name="biometric_prompt_title">Unlock NotreMock</string>
+    <string name="biometric_prompt_subtitle">Authenticate to access privacy controls</string>
+
+    <string name="section_timezone_engine">TimeZone Automation</string>
+    <string name="tz_mode_manual">Standard (Manual + Quick Settings Link)</string>
+    <string name="tz_mode_shizuku">Shizuku Auto-TimeZone (No Root)</string>
+    <string name="tz_mode_root">Root Auto-TimeZone (su)</string>
+    <string name="shizuku_status_ready">Shizuku Connected &amp; Authorized</string>
+    <string name="shizuku_status_perm">Shizuku Running — Grant Permission</string>
+    <string name="shizuku_status_missing">Shizuku Not Running</string>
+    <string name="apply_timezone_now">Apply City TimeZone Now</string>
+    <string name="tz_applied_toast">TimeZone set to %s</string>
+    <string name="tz_manual_toast">System blocked auto-change. Opening Date &amp; Time for %s</string>
+
+    <string name="section_network_optin">Optional Network Check</string>
+    <string name="adv_ip_check_toggle">Allow Opt-In IP/VPN Country Check</string>
+    <string name="adv_ip_check_desc">Off by default (100% offline). When enabled, checks public country API only when you tap Check.</string>
+
+    <string name="section_root_lsposed">Root &amp; LSPosed Mode (Pro)</string>
+    <string name="root_warning_banner">These features require a rooted device with LSPosed Framework. Non-root devices work completely without this section.</string>
+    <string name="lsposed_active">LSPosed Module: ACTIVE</string>
+    <string name="lsposed_inactive">LSPosed Module: Inactive / Non-Root Device</string>
+    <string name="root_hide_sim">Spoof &amp; Hide SIM Card Info</string>
+    <string name="root_hide_sim_desc">Spoof MCC/MNC, SIM Country ISO, Operator Name and hide Cell IDs</string>
+    <string name="root_hide_ismock">Hide Mock Location Flag (isMock)</string>
+    <string name="root_hide_ismock_desc">Make spoofed GPS appear as hardware GPS to hooked apps</string>
+    <string name="root_per_app_tz">Per-App TimeZone Spoofing</string>
+    <string name="root_per_app_tz_desc">Report selected city TimeZone to hooked apps</string>
+    <string name="root_per_app_bypass">Real Per-App Bypass (incl. Background)</string>
+    <string name="root_per_app_bypass_desc">Exclude Neshan, Balad, Maps &amp; Find My Device simultaneously</string>
+
+    <!-- Guide & About -->
+    <string name="guide_title">Guide &amp; Documentation</string>
+    <string name="guide_tab_setup">Quick Setup</string>
+    <string name="guide_tab_privacy">100% Privacy</string>
+    <string name="guide_tab_limits">Non-Root vs Root</string>
+    <string name="guide_tab_about">About</string>
+    <string name="guide_setup_body">1. Enable Developer Options: Settings → About Phone → Tap Build Number 7 times.\n\n2. Inside Developer Options, find "Select mock location app" and choose NotreMock.\n\n3. Grant Location permission (required by Android 14+ to run a location service) and disable Battery Optimization so Android does not kill the service.\n\n4. Pick any city on Home and tap Start. You can use any VPN (V2Ray, WireGuard, etc.) at the same time—NotreMock never occupies Android\'s VPN slot.</string>
+    <string name="guide_privacy_body">• Use a VPN whose exit country matches your mocked city.\n\n• Turn OFF Wi-Fi Scanning &amp; Bluetooth Scanning in Location Settings so apps cannot infer your location from nearby routers.\n\n• Turn OFF Automatic TimeZone and set the city\'s TimeZone (or use Shizuku for 1-tap automatic sync).\n\n• For maximum privacy on non-root phones: enable Airplane Mode + Wi-Fi so cellular towers and SIM MCC/MNC cannot leak your region.\n\n• Add Quick Settings Tile ("NotreMock GPS") to your top shade for an instant Kill Switch.</string>
+    <string name="guide_limits_body">Standard Android (No Root):\n• Mock GPS works system-wide with zero VPN conflict.\n• Auto-Pause temporarily restores real GPS when you open bypassed foreground apps (Neshan, Balad, Maps).\n• Android blocks non-root apps from hiding SIM info from other apps or excluding background services like Find My Device simultaneously.\n\nShizuku (No Root, Wireless Debugging):\n• Unlocks automatic system TimeZone switching.\n\nRoot + LSPosed:\n• Unlocks true simultaneous per-app bypass (including Find My Device), SIM/MCC/Cell spoofing, per-app TimeZone, and hiding the isMock() flag.</string>
+    <string name="guide_about_body">NotreMock is a minimal, privacy-first, open-source Mock Location utility.\n\n• Zero telemetry, zero ads, offline-first by design.\n• Pre-loaded with ~2,680+ world capitals &amp; provincial capitals.\n• Supports English &amp; Persian (RTL).</string>
+</resources>

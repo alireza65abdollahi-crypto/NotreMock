@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NotreMock</string>
+    <string name="tile_label">موقعیت امن NotreMock</string>
+    <string name="accessibility_service_label">توقف خودکار NotreMock</string>
+    <string name="accessibility_service_description">فقط نام پکیج برنامه در حال اجرا را می‌خواند تا هنگام باز کردن برنامه‌های مستثنی (مثل نشان، بلد، مپس) موقعیت جعلی را موقتاً متوقف کند. هرگز محتوای صفحه را نمی‌خواند.</string>
+
+    <!-- Navigation & Common -->
+    <string name="nav_home">خانه</string>
+    <string name="nav_settings">تنظیمات</string>
+    <string name="nav_advanced">پیشرفته</string>
+    <string name="nav_guide">راهنما</string>
+    <string name="back">بازگشت</string>
+    <string name="close">بستن</string>
+    <string name="save">ذخیره</string>
+    <string name="cancel">انصراف</string>
+    <string name="apply">اعمال</string>
+    <string name="enable">فعال‌سازی</string>
+    <string name="fix_now">اصلاح</string>
+    <string name="open_settings">باز کردن</string>
+    <string name="copy">کپی</string>
+    <string name="copied">کپی شد</string>
+
+    <!-- Home Screen -->
+    <string name="privacy_score_label">حریم خصوصی %d%%</string>
+    <string name="status_active">موقعیت امن فعال است</string>
+    <string name="status_paused">توقف موقت خودکار (%s)</string>
+    <string name="status_inactive">محافظت خاموش است</string>
+    <string name="status_error_revoked">دسترسی Mock قطع شد!</string>
+    <string name="tap_to_start">برای شروع با آخرین تنظیمات لمس کنید</string>
+    <string name="tap_to_stop">برای توقف لمس کنید</string>
+    <string name="kill_switch_panic">قطع اضطراری (Kill Switch)</string>
+    <string name="randomize_point">نقطه تصادفی</string>
+    <string name="no_city_selected">برای شروع یک شهر از پایین انتخاب کنید</string>
+    <string name="last_city_prefix">آخرین انتخاب: %1$s، %2$s</string>
+    <string name="vpn_independent_badge">VPN: مستقل و سازگار</string>
+    <string name="bypass_count_badge">استثنا: %d برنامه</string>
+    <string name="tz_match_badge">ساعت: هماهنگ</string>
+    <string name="tz_mismatch_badge">ساعت: ناهماهنگ</string>
+
+    <!-- Setup Checklist Card -->
+    <string name="setup_needed_title">راه‌اندازی سریع مورد نیاز است</string>
+    <string name="setup_location_perm">تأیید دسترسی موقعیت مکانی (الزامی برای سرویس پس‌زمینه اندروید ۱۴+)</string>
+    <string name="setup_mock_app">انتخاب NotreMock به عنوان اپ Mock Location در تنظیمات توسعه‌دهنده</string>
+    <string name="setup_notif_perm">اجازه اعلان‌ها (برای هشدار نشت و کنترل سریع)</string>
+    <string name="open_dev_options">تنظیمات توسعه‌دهنده</string>
+
+    <!-- City Search & Favorites -->
+    <string name="search_cities_hint">جستجوی شهر، مرکز استان، کشور (فارسی یا انگلیسی)…</string>
+    <string name="favorites_recent">منتخب‌ها و اخیر</string>
+    <string name="all_cities_count">پایتخت‌ها و مراکز استان‌های دنیا (%d)</string>
+    <string name="capital_badge">پایتخت</string>
+    <string name="no_cities_found">شهری با این مشخصات پیدا نشد</string>
+    <string name="favorite_toggle">افزودن یا حذف از منتخب‌ها</string>
+
+    <!-- Notification Channels & Messages -->
+    <string name="notif_channel_service">سرویس موقعیت جعلی</string>
+    <string name="notif_channel_alerts">هشدارهای حریم خصوصی و Kill Switch</string>
+    <string name="notif_active_title">NotreMock فعال: %1$s</string>
+    <string name="notif_active_stealth_title">سرویس محافظت موقعیت فعال است</string>
+    <string name="notif_active_body">منطقه زمانی: %1$s • برای قطع فوری Kill Switch را بزنید</string>
+    <string name="notif_paused_title">توقف موقت خودکار (%1$s)</string>
+    <string name="notif_paused_body">GPS واقعی موقتاً برای برنامه مستثنی فعال شد</string>
+    <string name="notif_action_stop">Kill Switch</string>
+    <string name="notif_action_pause">توقف موقت</string>
+    <string name="notif_action_resume">ادامه</string>
+    <string name="notif_leak_title">هشدار حریم خصوصی: سرویس Mock قطع شد!</string>
+    <string name="notif_leak_body">دسترسی Mock Location گرفته یا متوقف شد. احتمال نشت موقعیت واقعی وجود دارد.</string>
+    <string name="notif_boot_fallback_title">برای ادامه NotreMock لمس کنید</string>
+    <string name="notif_boot_fallback_body">اندروید اجرای خودکار پس از بوت را محدود کرد. برای فعال‌سازی %1$s لمس کنید.</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">تنظیمات</string>
+    <string name="section_general">عمومی</string>
+    <string name="setting_language">زبان برنامه</string>
+    <string name="lang_system">پیش‌فرض سیستم</string>
+    <string name="lang_en">English (انگلیسی)</string>
+    <string name="lang_fa">فارسی</string>
+    <string name="setting_theme">پوسته ظاهری</string>
+    <string name="theme_system">مطابق سیستم</string>
+    <string name="theme_dark">تیره</string>
+    <string name="theme_light">روشن</string>
+    <string name="setting_boot_start">شروع خودکار با روشن شدن گوشی</string>
+    <string name="setting_boot_start_desc">فعال‌سازی خودکار آخرین موقعیت هنگام ریستارت تلفن</string>
+    <string name="setting_battery_opt">استثنا از بهینه‌سازی باتری</string>
+    <string name="setting_battery_opt_ok">نامحدود (پیشنهادی)</string>
+    <string name="setting_battery_opt_warn">محدود — ممکن است سیستم سرویس را ببندد</string>
+
+    <string name="section_bypass">استثنا کردن برنامه‌ها (توقف خودکار)</string>
+    <string name="bypass_enable">فعال‌سازی توقف خودکار هوشمند</string>
+    <string name="bypass_enable_desc">توقف موقت موقعیت جعلی هنگام باز کردن برنامه‌های منتخب</string>
+    <string name="bypass_accessibility_ok">پایشگر توقف خودکار فعال است</string>
+    <string name="bypass_accessibility_needed">فعال‌سازی سرویس دسترسی برای توقف خودکار</string>
+    <string name="bypass_accessibility_privacy">فقط نام برنامه پیش‌زمینه بررسی می‌شود؛ هیچ متنی از صفحه خوانده نمی‌شود.</string>
+    <string name="bypass_manage_apps">مدیریت برنامه‌های مستثنی (%d)</string>
+    <string name="bypass_picker_title">برنامه‌های مستثنی</string>
+    <string name="bypass_presets_note">اپ‌های پرکاربرد مسیریاب (نشان، بلد، مپس و...) آماده انتخاب هستند. نکته: اپ‌های پس‌زمینه مثل Find My Device بدون روت همزمان قابل تفکیک نیستند.</string>
+    <string name="search_apps_hint">جستجوی برنامه‌های نصب‌شده…</string>
+
+    <string name="section_privacy_audit">بررسی نشت و حریم خصوصی</string>
+    <string name="audit_mock_app">انتخاب به عنوان اپ Mock Location</string>
+    <string name="audit_timezone_match">هماهنگی منطقه زمانی سیستم با شهر</string>
+    <string name="audit_auto_tz_off">خاموش بودن منطقه زمانی خودکار</string>
+    <string name="audit_wifi_scan_off">خاموش بودن اسکن پس‌زمینه Wi-Fi</string>
+    <string name="audit_bt_scan_off">خاموش بودن اسکن پس‌زمینه بلوتوث</string>
+    <string name="audit_sim_risk">وضعیت سیم‌کارت و دکل مخابراتی</string>
+    <string name="audit_sim_ok">حالت هواپیما / بدون سیم‌کارت فعال</string>
+    <string name="audit_sim_warn">سیم‌کارت فعال است — اپ‌های غیرروت نمی‌توانند اطلاعات سیم‌کارت را از سایر اپ‌ها پنهان کنند. برای امنیت ۱۰۰٪ از حالت هواپیما + Wi-Fi استفاده کنید.</string>
+    <string name="audit_ip_check">تطابق کشور IP (VPN) با شهر</string>
+    <string name="audit_ip_checking">در حال بررسی…</string>
+    <string name="audit_ip_match">کشور IP (%1$s) با شهر انتخاب‌شده هماهنگ است</string>
+    <string name="audit_ip_mismatch">کشور IP (%1$s) با شهر انتخابی (%2$s) متفاوت است!</string>
+    <string name="audit_ip_error">خطا در بررسی یا عدم دسترسی به اینترنت</string>
+    <string name="run_ip_check">بررسی الان</string>
+
+    <string name="advanced_entry_title">تنظیمات پیشرفته و تخصصی</string>
+    <string name="advanced_entry_desc">شبیه‌سازی طبیعی GPS، کلید اضطراری، موتور TimeZone، بخش روت/LSPosed</string>
+
+    <!-- Advanced Settings -->
+    <string name="advanced_title">تنظیمات پیشرفته</string>
+    <string name="section_realism">شبیه‌سازی طبیعی موقعیت</string>
+    <string name="adv_jitter">لرزش طبیعی GPS (Jitter): %d متر</string>
+    <string name="adv_city_radius">پراکندگی تصادفی داخل شهر: %.1f کیلومتر</string>
+    <string name="adv_interval">فاصله به‌روزرسانی: %d میلی‌ثانیه</string>
+    <string name="adv_altitude">ارتفاع شبیه‌سازی‌شده: %d متر</string>
+
+    <string name="section_kill_switch">کلید اضطراری (Kill Switch) و نگهبان</string>
+    <string name="adv_watchdog">هشدار قطع ناگهانی (Watchdog)</string>
+    <string name="adv_watchdog_desc">پخش هشدار فوری در صورت قطع دسترسی Mock توسط سیستم</string>
+    <string name="adv_stealth_notif">اعلان مخفی (Stealth)</string>
+    <string name="adv_stealth_notif_desc">عدم نمایش نام شهر و مختصات در اعلان صفحه قفل</string>
+    <string name="adv_panic_action">عملکرد Kill Switch</string>
+    <string name="panic_stop">توقف کامل موقعیت جعلی</string>
+    <string name="panic_fallback">پرش فوری به شهر امن جایگزین</string>
+    <string name="adv_fallback_city">شهر امن جایگزین: %s</string>
+    <string name="adv_biometric_lock">قفل اثر انگشت / پین گوشی</string>
+    <string name="adv_biometric_lock_desc">درخواست احراز هویت هنگام ورود به NotreMock</string>
+    <string name="biometric_prompt_title">باز کردن NotreMock</string>
+    <string name="biometric_prompt_subtitle">برای دسترسی به تنظیمات حریم خصوصی تأیید کنید</string>
+
+    <string name="section_timezone_engine">موتور تغییر منطقه زمانی (TimeZone)</string>
+    <string name="tz_mode_manual">استاندارد (راهنما + باز کردن تنظیمات)</string>
+    <string name="tz_mode_shizuku">خودکار با Shizuku (بدون نیاز به روت)</string>
+    <string name="tz_mode_root">خودکار با دسترسی Root (su)</string>
+    <string name="shizuku_status_ready">Shizuku متصل و مجاز است</string>
+    <string name="shizuku_status_perm">Shizuku فعال است — اعطای مجوز را بزنید</string>
+    <string name="shizuku_status_missing">Shizuku در حال اجرا نیست</string>
+    <string name="apply_timezone_now">اعمال TimeZone شهر روی سیستم</string>
+    <string name="tz_applied_toast">منطقه زمانی روی %s تنظیم شد</string>
+    <string name="tz_manual_toast">تغییر خودکار در گوشی غیرروت مسدود است؛ باز کردن تنظیمات برای %s</string>
+
+    <string name="section_network_optin">بررسی اختیاری شبکه</string>
+    <string name="adv_ip_check_toggle">اجازه بررسی تطابق کشور IP/VPN</string>
+    <string name="adv_ip_check_desc">به‌صورت پیش‌فرض خاموش است (۱۰۰٪ آفلاین). فقط با زدن دکمه بررسی، کشور IP استعلام می‌شود.</string>
+
+    <string name="section_root_lsposed">بخش گوشی‌های روت و LSPosed (حرفه‌ای)</string>
+    <string name="root_warning_banner">این بخش فقط مخصوص گوشی‌های روت‌شده با LSPosed است. در گوشی‌های عادی (غیرروت) بدون این بخش کار می‌کند.</string>
+    <string name="lsposed_active">ماژول LSPosed: فعال</string>
+    <string name="lsposed_inactive">ماژول LSPosed: غیرفعال / گوشی غیرروت</string>
+    <string name="root_hide_sim">مخفی‌سازی و جعل اطلاعات سیم‌کارت</string>
+    <string name="root_hide_sim_desc">جعل کد کشور سیم‌کارت (MCC/MNC)، نام اپراتور و مخفی کردن دکل (Cell ID)</string>
+    <string name="root_hide_ismock">مخفی کردن پرچم Mock Location</string>
+    <string name="root_hide_ismock_desc">عدم تشخیص موقعیت جعلی توسط برنامه‌های حساس (isMock = false)</string>
+    <string name="root_per_app_tz">جعل TimeZone برای هر برنامه</string>
+    <string name="root_per_app_tz_desc">گزارش منطقه زمانی شهر انتخاب‌شده به برنامه‌های هدف</string>
+    <string name="root_per_app_bypass">استثنای واقعی و همزمان (حتی در پس‌زمینه)</string>
+    <string name="root_per_app_bypass_desc">دریافت همزمان GPS واقعی برای نشان، بلد، Maps و Find My Device</string>
+
+    <!-- Guide & About -->
+    <string name="guide_title">راهنما و مستندات</string>
+    <string name="guide_tab_setup">راه‌اندازی</string>
+    <string name="guide_tab_privacy">حریم خصوصی ۱۰۰٪</string>
+    <string name="guide_tab_limits">غیرروت و روت</string>
+    <string name="guide_tab_about">درباره اپ</string>
+    <string name="guide_setup_body">۱. فعال‌سازی بخش توسعه‌دهنده: تنظیمات ← درباره تلفن ← ۷ بار روی شماره ساخت (Build Number) بزنید.\n\n۲. وارد گزینه‌های توسعه‌دهنده (Developer Options) شوید، گزینه «انتخاب برنامه مکان آزمایشی» (Select mock location app) را پیدا کرده و NotreMock را انتخاب کنید.\n\n۳. دسترسی موقعیت مکانی را بدهید (برای سرویس پس‌زمینه اندروید ۱۴ به بالا الزامی است) و بهینه‌سازی باتری را برای اپ خاموش کنید.\n\n۴. در صفحه اصلی یک شهر انتخاب و دکمه شروع را بزنید. می‌توانید همزمان هر VPN دیگری (مثل V2Ray یا WireGuard) را روشن کنید؛ اپ ما هیچ تداخلی با VPN ندارد.</string>
+    <string name="guide_privacy_body">• همیشه سروری را در VPN انتخاب کنید که کشورش با شهر انتخابی در NotreMock یکی باشد.\n\n• اسکن پس‌زمینه Wi-Fi و بلوتوث را در تنظیمات مکان گوشی خاموش کنید تا اپ‌ها از روی مودم‌های اطراف موقعیت واقعی شما را تشخیص ندهند.\n\n• منطقه زمانی خودکار را خاموش کرده و TimeZone را روی شهر مقصد بگذارید (یا با Shizuku خودکار کنید).\n\n• برای حداکثر حریم خصوصی در گوشی غیرروت: گوشی را روی حالت هواپیما + Wi-Fi بگذارید تا اطلاعات سیم‌کارت و دکل مخابراتی نشت نکند.\n\n• تایل «موقعیت امن NotreMock» را به نوار کنترل بالای گوشی اضافه کنید تا همیشه Kill Switch فوری داشته باشید.</string>
+    <string name="guide_limits_body">گوشی استاندارد (بدون روت):\n• Mock GPS در کل سیستم بدون تداخل با VPN کار می‌کند.\n• قابلیت Auto-Pause هنگام باز کردن برنامه‌های مستثنی (نشان، بلد، مپس) موقتاً GPS واقعی را برمی‌گرداند.\n• محدودیت سیستم‌عامل: اپ‌های غیرروت نمی‌توانند اطلاعات سیم‌کارت را از سایر برنامه‌ها مخفی کنند یا همزمان به سرویس پس‌زمینه Find My Device لوکیشن واقعی بدهند.\n\nحالت Shizuku (بدون روت، با Wireless Debugging):\n• تغییر خودکار منطقه زمانی (TimeZone) سیستم را فعال می‌کند.\n\nحالت Root + LSPosed:\n• استثنای واقعی و همزمان برای تمام اپ‌ها (از جمله Find My Device)، جعل کامل سیم‌کارت/دکل، تغییر TimeZone مجزا و پنهان کردن فلگ isMock() را ممکن می‌کند.</string>
+    <string name="guide_about_body">NotreMock یک ابزار مینیمال، متن‌باز و متمرکز بر حریم خصوصی برای شبیه‌سازی موقعیت مکانی است.\n\n• بدون تبلیغات، بدون ردیابی و آفلاین.\n• دارای دیتابیس سبک شامل بیش از ۲٬۶۸۰ پایتخت و مرکز استان/ایالت دنیا.\n• پشتیبانی کامل از زبان فارسی و انگلیسی.</string>
+</resources>
