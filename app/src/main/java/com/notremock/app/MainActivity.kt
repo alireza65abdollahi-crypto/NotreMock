@@ -52,14 +52,15 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             val settings by viewModel.settings.collectAsState()
+            val isSettingsLoaded by viewModel.isSettingsLoaded.collectAsState()
             val darkTheme = when (settings.themeMode) {
                 ThemeMode.SYSTEM -> isSystemInDarkTheme()
                 ThemeMode.DARK -> true
                 ThemeMode.LIGHT -> false
             }
 
-            LaunchedEffect(settings.biometricLock) {
-                if (!lockChecked) {
+            LaunchedEffect(isSettingsLoaded, settings.biometricLock) {
+                if (isSettingsLoaded && !lockChecked) {
                     lockChecked = true
                     if (settings.biometricLock) {
                         promptBiometricUnlock()
@@ -70,10 +71,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             NotreMockTheme(darkTheme = darkTheme) {
-                if (isUnlocked || !settings.biometricLock) {
+                if (isSettingsLoaded && (isUnlocked || !settings.biometricLock)) {
                     val navController = rememberNavController()
-                    LaunchedEffect(settings.hasCompletedOnboarding) {
-                        if (!settings.hasCompletedOnboarding &&
+                    LaunchedEffect(isSettingsLoaded, settings.hasCompletedOnboarding) {
+                        if (isSettingsLoaded && !settings.hasCompletedOnboarding &&
                             navController.currentDestination?.route == Route.HOME
                         ) {
                             navController.navigate(Route.SETUP_WIZARD)
@@ -133,7 +134,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleAutoStartIntent(intent: Intent?) {
         if (intent?.getBooleanExtra(EXTRA_AUTO_START_ON_OPEN, false) == true) {
-            MockForegroundService.start(this, viewModel.settings.value.selectedCityId)
+            MockForegroundService.start(this, -1L)
         }
     }
 

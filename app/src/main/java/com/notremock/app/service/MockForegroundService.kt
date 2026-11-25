@@ -60,6 +60,8 @@ class MockForegroundService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             ACTION_START -> {
+                // Must enter foreground immediately to prevent ForegroundServiceDidNotStartInTimeException
+                runCatching { startForegroundCompat(buildBootstrapNotification()) }
                 val cityId = intent.getLongExtra(EXTRA_CITY_ID, -1L)
                 serviceScope.launch { startMocking(cityId) }
             }
@@ -86,16 +88,19 @@ class MockForegroundService : Service() {
     private suspend fun startMocking(requestedCityId: Long) {
         if (!MockLocationEngine.hasLocationPermission(this)) {
             MockState.update { it.copy(isRunning = false, errorType = MockErrorType.LOCATION_PERMISSION_MISSING) }
+            stopForeground(STOP_FOREGROUND_REMOVE)
             stopSelf()
             return
         }
         if (!OemGuideHelper.isDeviceLocationEnabled(this)) {
             MockState.update { it.copy(isRunning = false, errorType = MockErrorType.DEVICE_LOCATION_OFF) }
+            stopForeground(STOP_FOREGROUND_REMOVE)
             stopSelf()
             return
         }
         if (!MockLocationEngine.isMockAppSelected(this)) {
             MockState.update { it.copy(isRunning = false, errorType = MockErrorType.MOCK_APP_NOT_SELECTED) }
+            stopForeground(STOP_FOREGROUND_REMOVE)
             stopSelf()
             return
         }
@@ -104,6 +109,7 @@ class MockForegroundService : Service() {
         val cityId = if (requestedCityId > 0) requestedCityId else settings.selectedCityId
         val city = cityDb.getCityById(cityId) ?: cityDb.searchCities("", 1).firstOrNull()
         if (city == null) {
+            stopForeground(STOP_FOREGROUND_REMOVE)
             stopSelf()
             return
         }
@@ -292,9 +298,21 @@ class MockForegroundService : Service() {
         nm.notify(ALERT_NOTIF_ID, notif)
     }
 
+    private fun buildBootstrapNotification(): Notification {
+        val lctx = ContextCompat.getContextForLanguage(this)
+        return NotificationCompat.Builder(this, CHANNEL_SERVICE)
+            .setSmallIcon(R.drawable.ic_shield_pin)
+            .setContentTitle(lctx.getString(R.string.app_name))
+            .setContentText(lctx.getString(R.string.status_active))
+            .setOngoing(true)
+            .setSilent(true)
+            .build()
+    }
+
     private fun buildServiceNotification(city: City, pausedBy: String?, stealth: Boolean): Notification {
         val lctx = ContextCompat.getContextForLanguage(this)
-        val isPersian = lctx.resources.configuration.locales[0]?.language == "fa"
+        val locales = lctx.resources.configuration.locales
+        val isPersian = !locales.isEmpty && locales[0]?.language == "fa"
 
         val openApp = PendingIntent.getActivity(
             this, 100,

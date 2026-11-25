@@ -170,50 +170,59 @@ fun AdvancedSettingsScreen(
             // TimeZone Engine
             item {
                 SectionCard(title = stringResource(R.string.section_timezone_engine)) {
-                    RadioRow(
-                        label = stringResource(R.string.tz_mode_manual),
-                        selected = settings.timeZoneMode == TimeZoneMode.MANUAL,
-                        onClick = { viewModel.setTimeZoneMode(TimeZoneMode.MANUAL) }
+                    SwitchRow(
+                        title = stringResource(R.string.setting_sync_timezone),
+                        subtitle = stringResource(R.string.setting_sync_timezone_desc),
+                        checked = settings.syncTimeZone,
+                        onCheckedChange = { viewModel.setSyncTimeZone(it) }
                     )
-                    RadioRow(
-                        label = stringResource(R.string.tz_mode_shizuku),
-                        selected = settings.timeZoneMode == TimeZoneMode.SHIZUKU,
-                        onClick = { viewModel.setTimeZoneMode(TimeZoneMode.SHIZUKU) }
-                    )
-                    RadioRow(
-                        label = stringResource(R.string.tz_mode_root),
-                        selected = settings.timeZoneMode == TimeZoneMode.ROOT,
-                        onClick = { viewModel.setTimeZoneMode(TimeZoneMode.ROOT) }
-                    )
+                    if (settings.syncTimeZone) {
+                        HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                        RadioRow(
+                            label = stringResource(R.string.tz_mode_manual),
+                            selected = settings.timeZoneMode == TimeZoneMode.MANUAL,
+                            onClick = { viewModel.setTimeZoneMode(TimeZoneMode.MANUAL) }
+                        )
+                        RadioRow(
+                            label = stringResource(R.string.tz_mode_shizuku),
+                            selected = settings.timeZoneMode == TimeZoneMode.SHIZUKU,
+                            onClick = { viewModel.setTimeZoneMode(TimeZoneMode.SHIZUKU) }
+                        )
+                        RadioRow(
+                            label = stringResource(R.string.tz_mode_root),
+                            selected = settings.timeZoneMode == TimeZoneMode.ROOT,
+                            onClick = { viewModel.setTimeZoneMode(TimeZoneMode.ROOT) }
+                        )
 
-                    if (settings.timeZoneMode == TimeZoneMode.SHIZUKU) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text(
-                                text = when (shizukuStatus) {
-                                    ShizukuStatus.READY -> stringResource(R.string.shizuku_status_ready)
-                                    ShizukuStatus.NEEDS_PERMISSION -> stringResource(R.string.shizuku_status_perm)
-                                    ShizukuStatus.NOT_RUNNING -> stringResource(R.string.shizuku_status_missing)
-                                },
-                                style = MaterialTheme.typography.bodySmall,
-                                color = if (shizukuStatus == ShizukuStatus.READY) EmeraldPrimary else AmberWarning,
-                                modifier = Modifier.weight(1f)
-                            )
-                            if (shizukuStatus == ShizukuStatus.NEEDS_PERMISSION) {
-                                TextButton(onClick = { TimeZoneController.requestShizukuPermission() }) {
-                                    Text(stringResource(R.string.enable))
+                        if (settings.timeZoneMode == TimeZoneMode.SHIZUKU) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = when (shizukuStatus) {
+                                        ShizukuStatus.READY -> stringResource(R.string.shizuku_status_ready)
+                                        ShizukuStatus.NEEDS_PERMISSION -> stringResource(R.string.shizuku_status_perm)
+                                        ShizukuStatus.NOT_RUNNING -> stringResource(R.string.shizuku_status_missing)
+                                    },
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = if (shizukuStatus == ShizukuStatus.READY) EmeraldPrimary else AmberWarning,
+                                    modifier = Modifier.weight(1f)
+                                )
+                                if (shizukuStatus == ShizukuStatus.NEEDS_PERMISSION) {
+                                    TextButton(onClick = { TimeZoneController.requestShizukuPermission() }) {
+                                        Text(stringResource(R.string.enable))
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    Button(
-                        onClick = { viewModel.applyCityTimeZone() },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(stringResource(R.string.apply_timezone_now))
+                        Button(
+                            onClick = { viewModel.applyCityTimeZone() },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(stringResource(R.string.apply_timezone_now))
+                        }
                     }
                 }
             }

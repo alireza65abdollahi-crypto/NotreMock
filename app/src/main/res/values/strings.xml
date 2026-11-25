@@ -37,6 +37,7 @@
     <string name="bypass_count_badge">Bypass: %d apps</string>
     <string name="tz_match_badge">TZ: Match</string>
     <string name="tz_mismatch_badge">TZ: Mismatch</string>
+    <string name="tz_off_badge">TZ: Off (GPS Only)</string>
 
     <!-- Setup Checklist Card (shown when permissions missing) -->
     <string name="setup_needed_title">Quick Setup Required</string>
@@ -82,6 +83,8 @@
     <string name="theme_light">Light</string>
     <string name="setting_boot_start">Start Automatically on Boot</string>
     <string name="setting_boot_start_desc">Restore last mock location when phone restarts</string>
+    <string name="setting_sync_timezone">TimeZone Sync &amp; Check</string>
+    <string name="setting_sync_timezone_desc">OFF = Mock GPS location only (keep your phone\'s real clock and timezone untouched)</string>
     <string name="setting_battery_opt">Battery Optimization Exemption</string>
     <string name="setting_battery_opt_ok">Unrestricted (Recommended)</string>
     <string name="setting_battery_opt_warn">Restricted — system may kill service</string>

@@ -49,7 +49,8 @@ class BootReceiver : BroadcastReceiver() {
 
     private fun postResumePromptNotification(context: Context, cityId: Long) {
         val lctx = ContextCompat.getContextForLanguage(context)
-        val isFa = lctx.resources.configuration.locales[0]?.language == "fa"
+        val locales = lctx.resources.configuration.locales
+        val isFa = !locales.isEmpty && locales[0]?.language == "fa"
         val cityName = CityDatabaseHelper(context).getCityById(cityId)?.displayName(isFa) ?: "Last City"
 
         val startIntent = Intent(context, MainActivity::class.java).apply {

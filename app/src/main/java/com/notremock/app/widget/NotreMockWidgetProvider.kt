@@ -90,7 +90,8 @@ class NotreMockWidgetProvider : AppWidgetProvider() {
 
         private suspend fun buildViews(context: Context): RemoteViews {
             val lctx = ContextCompat.getContextForLanguage(context)
-            val isPersian = lctx.resources.configuration.locales[0]?.language == "fa"
+            val locales = lctx.resources.configuration.locales
+            val isPersian = !locales.isEmpty && locales[0]?.language == "fa"
             val runtime = MockState.state.value
             val city = runtime.activeCity ?: run {
                 val settings = PreferencesRepository(context).getCurrentSettings()

@@ -101,6 +101,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _tzFeedback = MutableStateFlow<TimeZoneApplyResult?>(null)
     val tzFeedback: StateFlow<TimeZoneApplyResult?> = _tzFeedback.asStateFlow()
 
+    private val _isSettingsLoaded = MutableStateFlow(false)
+    val isSettingsLoaded: StateFlow<Boolean> = _isSettingsLoaded.asStateFlow()
+
     private val _diagnostics = MutableStateFlow(
         SetupDiagnostics(
             hasLocationPermission = false,
@@ -122,6 +125,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
             settings.collectLatest { s ->
+                _isSettingsLoaded.value = true
                 val city = withContext(Dispatchers.IO) {
                     cityDb.getCityById(s.selectedCityId) ?: cityDb.searchCities("", 1).firstOrNull()
                 }
@@ -130,17 +134,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _favoriteCities.value = withContext(Dispatchers.IO) {
                     cityDb.getCitiesByIds(favAndRecent)
                 }
-                refreshStatus()
+                refreshStatus(s.syncTimeZone)
             }
         }
     }
 
-    fun refreshStatus() {
+    fun refreshStatus(syncTimeZoneOverride: Boolean? = null) {
         viewModelScope.launch(Dispatchers.IO) {
             val targetCity = runtimeState.value.activeCity ?: _selectedCity.value
             val locPerm = MockLocationEngine.hasLocationPermission(ctx)
             val batteryExempt = SystemIntentHelper.isIgnoringBatteryOptimizations(ctx)
-            val audit = PrivacyAuditor.runAudit(ctx, targetCity)
+            val audit = PrivacyAuditor.runAudit(ctx, targetCity, syncTimeZoneOverride ?: settings.value.syncTimeZone)
             val notifPerm = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 ContextCompat.checkSelfPermission(ctx, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
             } else {
@@ -273,6 +277,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setTimeZoneMode(mode: TimeZoneMode) {
         viewModelScope.launch { prefsRepo.updateTimeZoneMode(mode) }
+    }
+
+    fun setSyncTimeZone(enabled: Boolean) {
+        viewModelScope.launch {
+            prefsRepo.updateSyncTimeZone(enabled)
+            refreshStatus(enabled)
+        }
     }
 
     fun applyCityTimeZone() {

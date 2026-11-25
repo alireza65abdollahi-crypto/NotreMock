@@ -53,6 +53,7 @@ data class AppSettings(
     val panicAction: PanicAction = PanicAction.STOP_MOCKING,
     val fallbackCityId: Long = 2950159L,
     val biometricLock: Boolean = false,
+    val syncTimeZone: Boolean = false,
     val timeZoneMode: TimeZoneMode = TimeZoneMode.MANUAL,
     val allowIpCheck: Boolean = false,
     val hasCompletedOnboarding: Boolean = false,
@@ -95,6 +96,7 @@ class PreferencesRepository(private val context: Context) {
         val PANIC_ACTION = stringPreferencesKey("panic_action")
         val FALLBACK_CITY_ID = longPreferencesKey("fallback_city_id")
         val BIOMETRIC_LOCK = booleanPreferencesKey("biometric_lock")
+        val SYNC_TIMEZONE = booleanPreferencesKey("sync_timezone")
         val TIMEZONE_MODE = stringPreferencesKey("timezone_mode")
         val ALLOW_IP_CHECK = booleanPreferencesKey("allow_ip_check")
         val HAS_COMPLETED_ONBOARDING = booleanPreferencesKey("has_completed_onboarding")
@@ -127,6 +129,7 @@ class PreferencesRepository(private val context: Context) {
                 .getOrDefault(PanicAction.STOP_MOCKING),
             fallbackCityId = prefs[Keys.FALLBACK_CITY_ID] ?: 2950159L,
             biometricLock = prefs[Keys.BIOMETRIC_LOCK] ?: false,
+            syncTimeZone = prefs[Keys.SYNC_TIMEZONE] ?: false,
             timeZoneMode = runCatching { TimeZoneMode.valueOf(prefs[Keys.TIMEZONE_MODE] ?: "MANUAL") }
                 .getOrDefault(TimeZoneMode.MANUAL),
             allowIpCheck = prefs[Keys.ALLOW_IP_CHECK] ?: false,
@@ -215,6 +218,11 @@ class PreferencesRepository(private val context: Context) {
         context.dataStore.edit { it[Keys.BIOMETRIC_LOCK] = enabled }
     }
 
+    suspend fun updateSyncTimeZone(enabled: Boolean) {
+        context.dataStore.edit { it[Keys.SYNC_TIMEZONE] = enabled }
+        syncXposedBridge()
+    }
+
     suspend fun updateTimeZoneMode(mode: TimeZoneMode) {
         context.dataStore.edit { it[Keys.TIMEZONE_MODE] = mode.name }
     }
@@ -270,7 +278,7 @@ class PreferencesRepository(private val context: Context) {
             }
             putBoolean("hide_sim", s.xposedHideSim)
             putBoolean("hide_ismock", s.xposedHideIsMock)
-            putBoolean("per_app_tz", s.xposedPerAppTz)
+            putBoolean("per_app_tz", s.syncTimeZone && s.xposedPerAppTz)
             putBoolean("per_app_bypass", s.xposedPerAppBypass)
             putString("bypass_csv", s.bypassPackages.joinToString(","))
             apply()

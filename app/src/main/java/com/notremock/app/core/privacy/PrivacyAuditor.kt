@@ -15,6 +15,7 @@ import java.net.URL
 
 data class PrivacyAuditReport(
     val isMockAppSelected: Boolean = false,
+    val syncTimeZoneEnabled: Boolean = false,
     val isTimeZoneMatching: Boolean = false,
     val isAutoTimeZoneOff: Boolean = false,
     val isWifiScanningOff: Boolean = false,
@@ -32,7 +33,7 @@ sealed class IpCheckState {
 
 object PrivacyAuditor {
 
-    fun runAudit(context: Context, targetCity: City?): PrivacyAuditReport {
+    fun runAudit(context: Context, targetCity: City?, syncTimeZone: Boolean = false): PrivacyAuditReport {
         val mockSelected = MockLocationEngine.isMockAppSelected(context)
         val tzMatch = targetCity != null && TimeZoneController.isSystemTimeZoneMatching(targetCity.timeZoneId)
         val autoTzOff = !TimeZoneController.isAutoTimeZoneEnabled(context)
@@ -41,15 +42,24 @@ object PrivacyAuditor {
         val cellularSafe = isAirplaneModeOn(context) || !hasActiveSim(context)
 
         var score = 0
-        if (mockSelected) score += 25
-        if (tzMatch) score += 20
-        if (autoTzOff) score += 10
-        if (wifiScanOff) score += 15
-        if (bleScanOff) score += 10
-        if (cellularSafe) score += 20
+        if (syncTimeZone) {
+            if (mockSelected) score += 25
+            if (tzMatch) score += 20
+            if (autoTzOff) score += 10
+            if (wifiScanOff) score += 15
+            if (bleScanOff) score += 10
+            if (cellularSafe) score += 20
+        } else {
+            // Location-only mode: do not penalize score for keeping phone's real TimeZone
+            if (mockSelected) score += 35
+            if (wifiScanOff) score += 25
+            if (bleScanOff) score += 15
+            if (cellularSafe) score += 25
+        }
 
         return PrivacyAuditReport(
             isMockAppSelected = mockSelected,
+            syncTimeZoneEnabled = syncTimeZone,
             isTimeZoneMatching = tzMatch,
             isAutoTimeZoneOff = autoTzOff,
             isWifiScanningOff = wifiScanOff,

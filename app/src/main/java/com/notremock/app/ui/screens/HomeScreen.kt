@@ -83,7 +83,8 @@ fun HomeScreen(
 ) {
     val context = LocalContext.current
     val clipboard = LocalClipboardManager.current
-    val isPersian = LocalConfiguration.current.locales[0]?.language == "fa"
+    val locales = LocalConfiguration.current.locales
+    val isPersian = !locales.isEmpty && locales[0]?.language == "fa"
 
     val settings by viewModel.settings.collectAsState()
     val runtime by viewModel.runtimeState.collectAsState()
@@ -195,6 +196,7 @@ fun HomeScreen(
                     currentLat = if (runtime.isRunning) runtime.currentLat else displayCity?.lat ?: 0.0,
                     currentLng = if (runtime.isRunning) runtime.currentLng else displayCity?.lng ?: 0.0,
                     bypassCount = if (settings.bypassEnabled) settings.bypassPackages.size else 0,
+                    syncTimeZone = settings.syncTimeZone,
                     isTzMatching = audit.isTimeZoneMatching,
                     onToggleStartStop = {
                         if (!diagnostics.isCoreReady) {
@@ -205,7 +207,10 @@ fun HomeScreen(
                     },
                     onKillSwitch = { viewModel.triggerKillSwitch() },
                     onRandomize = { viewModel.randomizePoint() },
-                    onApplyTimeZone = { viewModel.applyCityTimeZone() },
+                    onTimeZoneChipClick = {
+                        if (settings.syncTimeZone) viewModel.applyCityTimeZone()
+                        else onOpenSettings()
+                    },
                     onCopyCoords = { lat, lng ->
                         clipboard.setText(AnnotatedString("%.5f, %.5f".format(lat, lng)))
                         Toast.makeText(context, context.getString(R.string.copied), Toast.LENGTH_SHORT).show()
@@ -373,11 +378,12 @@ private fun HeroStatusCard(
     currentLat: Double,
     currentLng: Double,
     bypassCount: Int,
+    syncTimeZone: Boolean,
     isTzMatching: Boolean,
     onToggleStartStop: () -> Unit,
     onKillSwitch: () -> Unit,
     onRandomize: () -> Unit,
-    onApplyTimeZone: () -> Unit,
+    onTimeZoneChipClick: () -> Unit,
     onCopyCoords: (Double, Double) -> Unit
 ) {
     val borderColor = when {
@@ -527,15 +533,19 @@ private fun HeroStatusCard(
                 }
                 item {
                     AssistChip(
-                        onClick = onApplyTimeZone,
+                        onClick = onTimeZoneChipClick,
                         label = {
                             Text(
-                                text = if (isTzMatching) {
-                                    stringResource(R.string.tz_match_badge)
-                                } else {
-                                    stringResource(R.string.tz_mismatch_badge)
+                                text = when {
+                                    !syncTimeZone -> stringResource(R.string.tz_off_badge)
+                                    isTzMatching -> stringResource(R.string.tz_match_badge)
+                                    else -> stringResource(R.string.tz_mismatch_badge)
                                 },
-                                color = if (isTzMatching) EmeraldPrimary else AmberWarning,
+                                color = when {
+                                    !syncTimeZone -> MaterialTheme.colorScheme.onSurfaceVariant
+                                    isTzMatching -> EmeraldPrimary
+                                    else -> AmberWarning
+                                },
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.SemiBold
                             )

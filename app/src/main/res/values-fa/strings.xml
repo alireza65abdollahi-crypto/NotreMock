@@ -37,6 +37,7 @@
     <string name="bypass_count_badge">استثنا: %d برنامه</string>
     <string name="tz_match_badge">ساعت: هماهنگ</string>
     <string name="tz_mismatch_badge">ساعت: ناهماهنگ</string>
+    <string name="tz_off_badge">ساعت: بدون تغییر (فقط مکان)</string>
 
     <!-- Setup Checklist Card -->
     <string name="setup_needed_title">راه‌اندازی سریع مورد نیاز است</string>
@@ -82,6 +83,8 @@
     <string name="theme_light">روشن</string>
     <string name="setting_boot_start">شروع خودکار با روشن شدن گوشی</string>
     <string name="setting_boot_start_desc">فعال‌سازی خودکار آخرین موقعیت هنگام ریستارت تلفن</string>
+    <string name="setting_sync_timezone">تطبیق و بررسی منطقه زمانی (TimeZone)</string>
+    <string name="setting_sync_timezone_desc">خاموش = فقط لوکیشن جعلی می‌شود و ساعت و TimeZone گوشی شما دست‌نخورده می‌ماند</string>
     <string name="setting_battery_opt">استثنا از بهینه‌سازی باتری</string>
     <string name="setting_battery_opt_ok">نامحدود (پیشنهادی)</string>
     <string name="setting_battery_opt_warn">محدود — ممکن است سیستم سرویس را ببندد</string>

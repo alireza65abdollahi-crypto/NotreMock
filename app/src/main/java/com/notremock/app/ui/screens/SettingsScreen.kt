@@ -152,6 +152,14 @@ fun SettingsScreen(
 
                     HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
                     SwitchRow(
+                        title = stringResource(R.string.setting_sync_timezone),
+                        subtitle = stringResource(R.string.setting_sync_timezone_desc),
+                        checked = settings.syncTimeZone,
+                        onCheckedChange = { viewModel.setSyncTimeZone(it) }
+                    )
+
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                    SwitchRow(
                         title = stringResource(R.string.setting_boot_start),
                         subtitle = stringResource(R.string.setting_boot_start_desc),
                         checked = settings.autoStartOnBoot,
@@ -260,16 +268,18 @@ fun SettingsScreen(
                         ok = audit.isMockAppSelected,
                         onFix = { SystemIntentHelper.openDeveloperOptions(context) }
                     )
-                    AuditRow(
-                        label = stringResource(R.string.audit_timezone_match),
-                        ok = audit.isTimeZoneMatching,
-                        onFix = { viewModel.applyCityTimeZone() }
-                    )
-                    AuditRow(
-                        label = stringResource(R.string.audit_auto_tz_off),
-                        ok = audit.isAutoTimeZoneOff,
-                        onFix = { SystemIntentHelper.openDateAndTimeSettings(context) }
-                    )
+                    if (settings.syncTimeZone) {
+                        AuditRow(
+                            label = stringResource(R.string.audit_timezone_match),
+                            ok = audit.isTimeZoneMatching,
+                            onFix = { viewModel.applyCityTimeZone() }
+                        )
+                        AuditRow(
+                            label = stringResource(R.string.audit_auto_tz_off),
+                            ok = audit.isAutoTimeZoneOff,
+                            onFix = { SystemIntentHelper.openDateAndTimeSettings(context) }
+                        )
+                    }
                     AuditRow(
                         label = stringResource(R.string.audit_wifi_scan_off),
                         ok = audit.isWifiScanningOff,
